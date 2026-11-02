@@ -1,0 +1,42 @@
+name: Generate Profile Activity Stats
+
+on:
+  schedule:
+    # Run daily at 02:00 UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  build-stats:
+    name: Generate Activity SVG
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Generate user-statistician SVG
+        # Pinned to v1.26.3 commit SHA
+        uses: cicirello/user-statistician@36500351ea14b69e68217d4c89eb0f3f06680b17
+        with:
+          image-file: assets/generated/user-statistician.svg
+          # Colors: Background, Border, Icon, Title, Text
+          colors: '#0a0d0d, #00ff9c, #00f7ff, #00ff9c, #edfdf6'
+          custom-title: 'Angula Badrinath · Activity Metrics'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and push changes if updated
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/generated/user-statistician.svg
+          if git diff --staged --quiet; then
+            echo "No changes in activity metrics SVG; skipping commit."
+          else
+            git commit -m "chore(activity): update user-statistician activity metrics [skip ci]"
+            git push
+          fi
