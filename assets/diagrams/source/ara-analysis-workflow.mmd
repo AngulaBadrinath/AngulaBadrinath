@@ -1,0 +1,29 @@
+%% ARA — Resume Analysis Pipeline Workflow
+%% Accurately reflecting Active Synchronous Execution & Target Async Decoupling
+sequenceDiagram
+  autonumber
+  actor User as Candidate / Recruiter
+  participant Web as Next.js Web App
+  participant API as FastAPI Gateway
+  participant Disk as Server Disk (uploads/)
+  participant Parser as Resume Parser (pypdf)
+  participant LLM as Ollama LLM Service
+  participant DB as PostgreSQL 18
+
+  Note over User,Web: Active Pipeline Execution (Verified in Codebase)
+  User->>Web: 1. Select Resume Document (PDF)
+  Web->>API: 2. POST /api/v1/resumes/upload (Multipart)
+  API->>Disk: 3. Stream & Persist File to uploads/
+  API->>Parser: 4. Extract Text Content & Characters
+  API->>DB: 5. Insert Resume (scoped to organization_id)
+  API-->>Web: 6. Return 200 OK (resume_id, characters)
+  
+  Web->>API: 7. POST /api/v1/analysis/jobs (Trigger Analysis)
+  API->>DB: 8. Insert AnalysisJob (status: pending)
+  API->>LLM: 9. Prompt Ollama for Structured Extraction (Skills, ATS Score, Gaps)
+  LLM-->>API: 10. Return Structured Analysis JSON
+  API->>DB: 11. Insert AnalysisResult & Update Status -> COMPLETED
+  API-->>Web: 12. Return Job Status & Analysis Payload
+  Web-->>User: 13. Render Structured Skills, ATS Feedback & Recommendations
+
+  Note over API,DB: Planned Target Architecture: ARQ Background Worker Queue & Direct S3 Presigned Uploads

@@ -1,0 +1,53 @@
+%% Unique Jersey Wholesale — Modular Monolith Architecture
+%% Hardened against codebase audit: verified Laravel 13, React 19, PostgreSQL 18, row locking
+flowchart TB
+  subgraph CLIENT["Client Tier (Inertia.js SPA)"]
+    AdminUI["Admin Portal\n(React 19 + TypeScript)"]
+    SalesUI["Salesman Portal\n(Mobile-First React)"]
+    DeliveryUI["Delivery Partner Portal\n(Task Workspace)"]
+  end
+
+  subgraph CORE["Laravel 13 Application Core (PHP 8.5 / 8.3)"]
+    Router["Inertia Router & Middleware\n(RBAC / Session Auth)"]
+    
+    subgraph MODULES["Genuinely Implemented Domain Modules"]
+      OrderMod["Order Management & Allocations\n(Pessimistic lockForUpdate())"]
+      CatalogMod["Product Catalog & Dynamic Pricing\n(Tiered Customer Price Bands)"]
+      InventoryMod["Warehouse Inventory & Movements\n(Physical Discrepancy Audits)"]
+      DeliveryMod["Logistics & Dispatch Coordination\n(Magic-Byte Validated Proof)"]
+      FinanceMod["Invoicing & Double-Entry Ledger\n(Journals, COA, Immutability)"]
+    end
+  end
+
+  subgraph STORAGE["Persistence & Infrastructure Layer"]
+    PG[("PostgreSQL 18\nAuthoritative Transactional Core")]
+    Redis[("Redis 7 (Predis)\nSession & Cache (Queue Ready)")]
+    Disk[("Document Storage\nPrivate Disk (S3-Ready Driver)")]
+  end
+
+  subgraph QA["Testing & Quality Assurance Harness"]
+    Playwright["Playwright E2E Browser Tests"]
+    Pest["Pest / PHPUnit 12 Test Harness"]
+  end
+
+  AdminUI --> Router
+  SalesUI --> Router
+  DeliveryUI --> Router
+
+  Router --> OrderMod
+  Router --> CatalogMod
+  Router --> InventoryMod
+  Router --> DeliveryMod
+  Router --> FinanceMod
+
+  OrderMod --> PG
+  CatalogMod --> PG
+  InventoryMod --> PG
+  DeliveryMod --> PG
+  FinanceMod --> PG
+
+  OrderMod --> Redis
+  DeliveryMod --> Disk
+
+  Playwright -.-> CLIENT
+  Pest -.-> CORE

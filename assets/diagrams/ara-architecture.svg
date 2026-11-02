@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="100%" height="100%">
+  <defs>
+    <linearGradient id="araBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050505" />
+      <stop offset="50%" stop-color="#070c0b" />
+      <stop offset="100%" stop-color="#040605" />
+    </linearGradient>
+
+    <linearGradient id="araPanel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a1512" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#050a08" stop-opacity="0.95" />
+    </linearGradient>
+
+    <marker id="mGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#00ff9c" />
+    </marker>
+    <marker id="mCyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#00f7ff" />
+    </marker>
+    <marker id="mViolet" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#8b5cf6" />
+    </marker>
+  </defs>
+
+  <style>
+    .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+    .sans { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  </style>
+
+  <!-- Background -->
+  <rect width="960" height="560" fill="url(#araBg)" />
+  <rect x="1" y="1" width="958" height="558" fill="none" stroke="rgba(0, 247, 255, 0.2)" stroke-width="1.5" />
+
+  <!-- Header -->
+  <g transform="translate(36, 32)">
+    <rect x="0" y="0" width="888" height="34" rx="4" fill="#081012" stroke="rgba(0, 247, 255, 0.25)" stroke-width="1" />
+    <circle cx="16" cy="17" r="4" fill="#00f7ff" />
+    <text x="28" y="21" class="mono" font-size="11" font-weight="700" fill="#00f7ff" letter-spacing="0.1em">
+      SYSTEM ARCHITECTURE · ARA (AI RESUME ANALYZER)
+    </text>
+    <text x="874" y="21" text-anchor="end" class="mono" font-size="10.5" fill="#8e9d97">
+      NEXT.JS 15 · FASTAPI · OLLAMA · POSTGRESQL MULTI-TENANCY
+    </text>
+  </g>
+
+  <!-- TOP LAYER: CLIENT & API GATEWAY -->
+  <g transform="translate(36, 86)">
+    <!-- Web App Box -->
+    <g>
+      <rect x="0" y="0" width="420" height="110" rx="6" fill="url(#araPanel)" stroke="rgba(0, 255, 156, 0.3)" stroke-width="1" />
+      <text x="16" y="22" class="mono" font-size="10" font-weight="700" fill="#00ff9c" letter-spacing="0.1em">01 · FRONTEND APPLICATION (APPS/WEB)</text>
+      <rect x="16" y="34" width="388" height="60" rx="4" fill="#081b15" stroke="rgba(0, 255, 156, 0.2)" stroke-width="1" />
+      <text x="28" y="54" class="mono" font-size="12" font-weight="700" fill="#edfdf6">Next.js 15 App Router (Port 3000)</text>
+      <text x="28" y="72" class="sans" font-size="10.5" fill="#8e9d97">Resume File Upload UX · Analysis Polling · Rich Structured View</text>
+      <text x="28" y="86" class="sans" font-size="10" fill="#00ff9c">React 19 · TypeScript · Tailwind CSS · Shared DTOs</text>
+    </g>
+
+    <!-- REST API Box -->
+    <g transform="translate(468, 0)">
+      <rect x="0" y="0" width="420" height="110" rx="6" fill="url(#araPanel)" stroke="rgba(0, 247, 255, 0.3)" stroke-width="1" />
+      <text x="16" y="22" class="mono" font-size="10" font-weight="700" fill="#00f7ff" letter-spacing="0.1em">02 · BACKEND API (APPS/API)</text>
+      <rect x="16" y="34" width="388" height="60" rx="4" fill="#08181f" stroke="rgba(0, 247, 255, 0.2)" stroke-width="1" />
+      <text x="28" y="54" class="mono" font-size="12" font-weight="700" fill="#edfdf6">FastAPI Application (Port 8000)</text>
+      <text x="28" y="72" class="sans" font-size="10.5" fill="#8e9d97">POST /resumes/upload · POST /analysis/jobs · Multi-Tenant JWT</text>
+      <text x="28" y="86" class="sans" font-size="10" fill="#00f7ff">Python 3.12+ · Pydantic v2 · SQLAlchemy ORM · Alembic</text>
+    </g>
+  </g>
+
+  <!-- Connectors from Client to API -->
+  <line x1="420" y1="141" x2="464" y2="141" stroke="#00f7ff" stroke-width="1.5" marker-end="url(#mCyan)" />
+  <text x="442" y="132" text-anchor="middle" class="mono" font-size="8.5" fill="#8e9d97">REST</text>
+
+  <!-- MIDDLE LAYER: ACTIVE EXTRACTION ENGINE & PLANNED ASYNC TIERS -->
+  <g transform="translate(36, 230)">
+    <!-- Active Ingestion & Ollama LLM Box -->
+    <g>
+      <rect x="0" y="0" width="420" height="130" rx="6" fill="url(#araPanel)" stroke="rgba(0, 255, 156, 0.35)" stroke-width="1.2" />
+      <text x="16" y="22" class="mono" font-size="10" font-weight="700" fill="#00ff9c" letter-spacing="0.1em">03 · ACTIVE EXTRACTION PIPELINE [VERIFIED]</text>
+      
+      <g transform="translate(16, 34)">
+        <rect x="0" y="0" width="186" height="80" rx="4" fill="#081912" stroke="rgba(0, 255, 156, 0.25)" stroke-width="1" />
+        <text x="10" y="20" class="mono" font-size="11" font-weight="700" fill="#00ff9c">Multipart Ingestion</text>
+        <text x="10" y="38" class="sans" font-size="9.5" fill="#edfdf6">pypdf Text Extraction</text>
+        <text x="10" y="54" class="sans" font-size="9" fill="#8e9d97">Direct API streaming</text>
+        <text x="10" y="70" class="mono" font-size="8.5" fill="#00ff9c">Active in Codebase [✓]</text>
+      </g>
+      <g transform="translate(202, 0)">
+        <rect x="0" y="0" width="202" height="80" rx="4" fill="#081912" stroke="rgba(0, 255, 156, 0.25)" stroke-width="1" />
+        <text x="10" y="20" class="mono" font-size="11" font-weight="700" fill="#00ff9c">Ollama LLM Service</text>
+        <text x="10" y="38" class="sans" font-size="9.5" fill="#edfdf6">Synchronous Pipeline</text>
+        <text x="10" y="54" class="sans" font-size="9" fill="#8e9d97">Skills, gaps, ATS score</text>
+        <text x="10" y="70" class="mono" font-size="8.5" fill="#00ff9c">Active in Codebase [✓]</text>
+      </g>
+    </g>
+
+    <!-- Target Scaled Blueprint Box -->
+    <g transform="translate(468, 0)">
+      <rect x="0" y="0" width="420" height="130" rx="6" fill="url(#araPanel)" stroke="rgba(139, 92, 246, 0.3)" stroke-width="1" stroke-dasharray="4 4" />
+      <text x="16" y="22" class="mono" font-size="10" font-weight="700" fill="#a78bfa" letter-spacing="0.1em">04 · TARGET HIGH-THROUGHPUT BLUEPRINT</text>
+      
+      <g transform="translate(16, 34)">
+        <rect x="0" y="0" width="186" height="80" rx="4" fill="#120c1f" stroke="rgba(139, 92, 246, 0.25)" stroke-width="1" />
+        <text x="10" y="20" class="mono" font-size="11" font-weight="700" fill="#a78bfa">Direct S3 Presigned</text>
+        <text x="10" y="38" class="sans" font-size="9.5" fill="#edfdf6">Zero API Buffering</text>
+        <text x="10" y="54" class="sans" font-size="9" fill="#8e9d97">MinIO / S3 Bucket</text>
+        <text x="10" y="70" class="mono" font-size="8.5" fill="#00f7ff">Architectural Blueprint</text>
+      </g>
+      <g transform="translate(202, 0)">
+        <rect x="0" y="0" width="202" height="80" rx="4" fill="#120c1f" stroke="rgba(139, 92, 246, 0.25)" stroke-width="1" />
+        <text x="10" y="20" class="mono" font-size="11" font-weight="700" fill="#a78bfa">ARQ Worker Queue</text>
+        <text x="10" y="38" class="sans" font-size="9.5" fill="#edfdf6">Redis 7 Background Jobs</text>
+        <text x="10" y="54" class="sans" font-size="9" fill="#8e9d97">Decoupled Processing</text>
+        <text x="10" y="70" class="mono" font-size="8.5" fill="#00f7ff">Architectural Blueprint</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Connectors from API to Engine -->
+  <line x1="246" y1="196" x2="246" y2="226" stroke="#00ff9c" stroke-width="1.5" marker-end="url(#mGreen)" />
+  <line x1="678" y1="196" x2="678" y2="226" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#mViolet)" />
+
+  <!-- BOTTOM LAYER: STORAGE (PostgreSQL & Storage) -->
+  <g transform="translate(36, 394)">
+    <rect x="0" y="0" width="888" height="130" rx="6" fill="url(#araPanel)" stroke="rgba(0, 247, 255, 0.25)" stroke-width="1" />
+    <text x="16" y="22" class="mono" font-size="10" font-weight="700" fill="#00f7ff" letter-spacing="0.1em">05 · PERSISTENCE &amp; TENANT ISOLATION [VERIFIED]</text>
+
+    <g transform="translate(16, 34)">
+      <!-- PostgreSQL DB -->
+      <g>
+        <rect x="0" y="0" width="414" height="80" rx="4" fill="#08161f" stroke="rgba(0, 247, 255, 0.25)" stroke-width="1" />
+        <text x="14" y="20" class="mono" font-size="11" font-weight="700" fill="#00f7ff">PostgreSQL 18 Database</text>
+        <text x="14" y="38" class="sans" font-size="10" fill="#edfdf6">Multi-Tenant Scoped Tables (UUID Primary Keys)</text>
+        <text x="14" y="54" class="sans" font-size="9.5" fill="#8e9d97">organizations · users · resumes · analysis_jobs · analysis_results</text>
+        <text x="14" y="70" class="mono" font-size="8.5" fill="#00ff9c">Strict foreign keys &amp; tenant isolation [✓]</text>
+      </g>
+      <!-- Storage Volume -->
+      <g transform="translate(438, 0)">
+        <rect x="0" y="0" width="418" height="80" rx="4" fill="#08161f" stroke="rgba(0, 247, 255, 0.25)" stroke-width="1" />
+        <text x="14" y="20" class="mono" font-size="11" font-weight="700" fill="#00f7ff">Storage Volumes</text>
+        <text x="14" y="38" class="sans" font-size="10" fill="#edfdf6">Local Container Volume [Active] · MinIO Object Store [Configured]</text>
+        <text x="14" y="54" class="sans" font-size="9.5" fill="#8e9d97">Persisted document storage linked to resume record storage_key</text>
+        <text x="14" y="70" class="mono" font-size="8.5" fill="#00ff9c">Tenant-isolated storage paths [✓]</text>
+      </g>
+    </g>
+  </g>
+</svg>
