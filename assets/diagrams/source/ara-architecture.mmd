@@ -1,41 +1,40 @@
 %% ARA — AI Resume Analyzer Architecture
+%% Accurately distinguishing Active Runtime vs Target High-Throughput Blueprint
 flowchart TB
   subgraph FRONTEND["Frontend Tier (apps/web)"]
     Web["Next.js 15 Web Application\n(React 19, TypeScript, Tailwind)"]
   end
 
-  subgraph API["Backend API Tier (apps/api)"]
-    FastAPI["FastAPI 0.115+ (Python 3.12+)\n(Pydantic v2, JWT Auth, Multi-Tenancy)"]
-    Router["Endpoints: /resumes, /analysis/jobs"]
-    FastAPI --> Router
+  subgraph API["FastAPI Application Gateway (apps/api)"]
+    FastAPI["FastAPI (Python 3.12+)\n(Pydantic v2, JWT Auth, Multi-Tenancy)"]
+    UploadEndpoint["POST /resumes/upload\n[Active: Multipart Ingest]"]
+    AnalysisEndpoint["POST /analysis/jobs\n[Active: Synchronous Pipeline]"]
+    FastAPI --> UploadEndpoint
+    FastAPI --> AnalysisEndpoint
   end
 
-  subgraph ASYNC["Async Processing Tier"]
-    Redis[("Redis 7\nARQ Message Broker")]
-    Worker["ARQ Background Worker\n(Async Job Processor)"]
+  subgraph ACTIVE_ENGINE["Active Extraction Pipeline"]
+    Parser["PDF Text Parser (pypdf)\n[Active: Local Server Memory]"]
+    Ollama["Ollama Local Model (port 11434)\n[Active: Direct LLM Inference]"]
+    UploadEndpoint --> Parser
+    AnalysisEndpoint --> Ollama
   end
 
-  subgraph STORAGE["Data & Storage Tier"]
+  subgraph STORAGE["Persistence Layer"]
     PG[("PostgreSQL 18\nTenant-Scoped DB (UUIDs)")]
-    MinIO[("MinIO / S3 Object Storage\nDirect Presigned Resume Uploads")]
+    Disk[("Uploads Volume\nLocal Container Disk Storage")]
+    FastAPI --> PG
+    FastAPI --> Disk
+    Ollama -->|Structured JSON| PG
   end
 
-  subgraph AI["AI Inference Tier"]
-    LLM["Provider-Agnostic LLM Interface\n(app/llm)"]
-    Ollama["Ollama Local Model (port 11434)\n/ Cloud Model Provider"]
-    LLM --> Ollama
+  subgraph PLANNED["Target Blueprint (High-Throughput Scaling)"]
+    PresignedS3["Direct S3 Presigned Uploads\n(Zero API Buffering)"]
+    ARQQueue["Redis 7 ARQ Worker Queue\n(Decoupled Background Tasks)"]
+    Web -.->|Planned Blueprint| PresignedS3
+    FastAPI -.->|Planned Blueprint| ARQQueue
   end
 
-  Web -->|1. Request Presigned URL| FastAPI
-  Web -->|2. Upload File Directly| MinIO
-  Web -->|3. Trigger Analysis Job| FastAPI
-  
-  FastAPI -->|Enqueue Task| Redis
-  FastAPI -->|Persist Metadata| PG
-  
-  Worker -->|Dequeue Job| Redis
-  Worker -->|Fetch Document| MinIO
-  Worker -->|Execute Extraction| LLM
-  Worker -->|Write Analysis JSON| PG
-
-  Web -.->|Poll Job Status| FastAPI
+  Web -->|1. Multipart Upload| UploadEndpoint
+  Web -->|2. Trigger Analysis| AnalysisEndpoint
+  Web -.->|3. Poll Job Status| FastAPI

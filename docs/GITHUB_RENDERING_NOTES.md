@@ -58,3 +58,4 @@ GitHub profile READMEs are statically rendered documents, not client-side web ap
 1. **Fake JavaScript Widgets:** GitHub strips all `<script>` tags, iframe embeds, and CSS keyframe animations that attempt to emulate web app interactivity.
 2. **Unsupported CSS:** Custom `<style>` tags in README markdown are stripped by GitHub. All styling is encapsulated inside self-contained SVG assets.
 3. **External Badge Sprawl:** Unreliable third-party badge APIs (e.g., dynamic hit counters, external stats servers) create latency, tracking risks, and frequent broken image badges. This profile uses self-hosted, GitHub Actions-generated SVG assets committed directly to the repository.
+

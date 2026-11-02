@@ -1,6 +1,6 @@
 name: Generate Profile Activity Stats
 
-on:
+'on':
   schedule:
     # Run daily at 02:00 UTC
     - cron: '0 2 * * *'
@@ -40,3 +40,4 @@ jobs:
             git commit -m "chore(activity): update user-statistician activity metrics [skip ci]"
             git push
           fi
+

@@ -23,7 +23,7 @@
   </defs>
 
   <style>
-    .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; }
+    .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
     .sans { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
   </style>
 
@@ -36,83 +36,83 @@
     <rect x="0" y="0" width="888" height="34" rx="4" fill="#081012" stroke="rgba(0, 247, 255, 0.25)" stroke-width="1" />
     <circle cx="16" cy="17" r="4" fill="#00f7ff" />
     <text x="28" y="21" class="mono" font-size="11" font-weight="700" fill="#00f7ff" letter-spacing="0.1em">
-      ASYNCHRONOUS PIPELINE · RESUME INGESTION &amp; STRUCTURED LLM ANALYSIS
+      RESUME INGESTION &amp; STRUCTURED LLM ANALYSIS PIPELINE
     </text>
     <text x="874" y="21" text-anchor="end" class="mono" font-size="10" fill="#8e9d97">
-      DIRECT S3 UPLOAD · ARQ QUEUE · STRUCTURED JSON
+      VERIFIED CODEBASE FLOW · SYNCHRONOUS INFERENCE
     </text>
   </g>
 
   <!-- 4 PRIMARY WORKFLOW STAGES (Horizontal cards) -->
-  <!-- STEP 1: Direct Upload -->
+  <!-- STEP 1: Multipart Upload -->
   <g transform="translate(36, 88)">
     <rect x="0" y="0" width="206" height="300" rx="6" fill="url(#stepGrad)" stroke="rgba(0, 255, 156, 0.3)" stroke-width="1.2" />
     <rect x="0" y="0" width="206" height="32" rx="6" fill="#0c231a" />
-    <text x="12" y="21" class="mono" font-size="10.5" font-weight="700" fill="#00ff9c">01 · SECURE UPLOAD</text>
+    <text x="12" y="21" class="mono" font-size="10.5" font-weight="700" fill="#00ff9c">01 · FILE INGESTION</text>
     
     <g transform="translate(14, 48)">
-      <text x="0" y="0" class="mono" font-size="9" fill="#00ff9c">Presigned Flow</text>
-      <text x="0" y="20" class="sans" font-size="12.5" font-weight="700" fill="#edfdf6">Direct S3 Ingest</text>
-      <text x="0" y="44" class="sans" font-size="10" fill="#8e9d97">1. Next.js asks FastAPI for</text>
-      <text x="0" y="60" class="sans" font-size="10" fill="#8e9d97">   presigned upload URL</text>
-      <text x="0" y="80" class="sans" font-size="10" fill="#8e9d97">2. Browser uploads binary</text>
-      <text x="0" y="96" class="sans" font-size="10" fill="#8e9d97">   straight to MinIO / S3</text>
-      <text x="0" y="116" class="sans" font-size="10" fill="#8e9d97">3. Confirm resume metadata</text>
-      <text x="0" y="132" class="sans" font-size="10" fill="#8e9d97">   persisted in PostgreSQL</text>
+      <text x="0" y="0" class="mono" font-size="9" fill="#00ff9c">Active Pipeline</text>
+      <text x="0" y="20" class="sans" font-size="12.5" font-weight="700" fill="#edfdf6">Multipart Upload</text>
+      <text x="0" y="44" class="sans" font-size="10" fill="#8e9d97">1. Browser sends PDF to</text>
+      <text x="0" y="60" class="sans" font-size="10" fill="#8e9d97">   POST /api/v1/resumes/upload</text>
+      <text x="0" y="80" class="sans" font-size="10" fill="#8e9d97">2. Stream saved to uploads/</text>
+      <text x="0" y="96" class="sans" font-size="10" fill="#8e9d97">   directory on server</text>
+      <text x="0" y="116" class="sans" font-size="10" fill="#8e9d97">3. pypdf extracts character</text>
+      <text x="0" y="132" class="sans" font-size="10" fill="#8e9d97">   text from document</text>
       
       <rect x="0" y="160" width="178" height="44" rx="4" fill="#06120d" stroke="rgba(0, 255, 156, 0.2)" stroke-width="1" />
-      <text x="8" y="176" class="mono" font-size="8.5" fill="#8e9d97">Advantage:</text>
-      <text x="8" y="192" class="mono" font-size="9.5" font-weight="700" fill="#00ff9c">Zero API File Buffering</text>
+      <text x="8" y="176" class="mono" font-size="8.5" fill="#8e9d97">Target Blueprint:</text>
+      <text x="8" y="192" class="mono" font-size="9.5" font-weight="700" fill="#00f7ff">Presigned S3 Uploads</text>
     </g>
   </g>
 
   <!-- Arrow 1 -> 2 -->
   <line x1="244" y1="238" x2="260" y2="238" stroke="#00ff9c" stroke-width="2" marker-end="url(#wfM)" />
 
-  <!-- STEP 2: Enqueue Job -->
+  <!-- STEP 2: Job Dispatch -->
   <g transform="translate(262, 88)">
     <rect x="0" y="0" width="206" height="300" rx="6" fill="url(#stepGrad)" stroke="rgba(0, 247, 255, 0.3)" stroke-width="1.2" />
     <rect x="0" y="0" width="206" height="32" rx="6" fill="#082229" />
-    <text x="12" y="21" class="mono" font-size="10.5" font-weight="700" fill="#00f7ff">02 · DISPATCH QUEUE</text>
+    <text x="12" y="21" class="mono" font-size="10.5" font-weight="700" fill="#00f7ff">02 · JOB TRIGGER</text>
     
     <g transform="translate(14, 48)">
-      <text x="0" y="0" class="mono" font-size="9" fill="#00f7ff">FastAPI → Redis</text>
-      <text x="0" y="20" class="sans" font-size="12.5" font-weight="700" fill="#edfdf6">Non-Blocking Queue</text>
+      <text x="0" y="0" class="mono" font-size="9" fill="#00f7ff">Active Pipeline</text>
+      <text x="0" y="20" class="sans" font-size="12.5" font-weight="700" fill="#edfdf6">Analysis Gateway</text>
       <text x="0" y="44" class="sans" font-size="10" fill="#8e9d97">1. Trigger analysis task via</text>
       <text x="0" y="60" class="sans" font-size="10" fill="#8e9d97">   POST /api/v1/analysis/jobs</text>
-      <text x="0" y="80" class="sans" font-size="10" fill="#8e9d97">2. Creates job entry with</text>
-      <text x="0" y="96" class="sans" font-size="10" fill="#8e9d97">   status="pending"</text>
-      <text x="0" y="116" class="sans" font-size="10" fill="#8e9d97">3. Enqueues task into Redis</text>
-      <text x="0" y="132" class="sans" font-size="10" fill="#8e9d97">   returns 202 Accepted</text>
+      <text x="0" y="80" class="sans" font-size="10" fill="#8e9d97">2. Validates tenant scope</text>
+      <text x="0" y="96" class="sans" font-size="10" fill="#8e9d97">   (organization_id check)</text>
+      <text x="0" y="116" class="sans" font-size="10" fill="#8e9d97">3. Creates AnalysisJob row</text>
+      <text x="0" y="132" class="sans" font-size="10" fill="#8e9d97">   (status: pending)</text>
       
       <rect x="0" y="160" width="178" height="44" rx="4" fill="#061217" stroke="rgba(0, 247, 255, 0.2)" stroke-width="1" />
-      <text x="8" y="176" class="mono" font-size="8.5" fill="#8e9d97">Queue Broker:</text>
-      <text x="8" y="192" class="mono" font-size="9.5" font-weight="700" fill="#00f7ff">Redis 7 + ARQ Worker</text>
+      <text x="8" y="176" class="mono" font-size="8.5" fill="#8e9d97">Target Blueprint:</text>
+      <text x="8" y="192" class="mono" font-size="9.5" font-weight="700" fill="#00f7ff">ARQ Redis Queue</text>
     </g>
   </g>
 
   <!-- Arrow 2 -> 3 -->
   <line x1="470" y1="238" x2="486" y2="238" stroke="#00f7ff" stroke-width="2" marker-end="url(#wfC)" />
 
-  <!-- STEP 3: Async Worker & LLM -->
+  <!-- STEP 3: Ollama LLM Extraction -->
   <g transform="translate(488, 88)">
     <rect x="0" y="0" width="206" height="300" rx="6" fill="url(#stepGrad)" stroke="rgba(139, 92, 246, 0.3)" stroke-width="1.2" />
     <rect x="0" y="0" width="206" height="32" rx="6" fill="#1b122c" />
-    <text x="12" y="21" class="mono" font-size="10.5" font-weight="700" fill="#a78bfa">03 · ASYNC EXTRACTION</text>
+    <text x="12" y="21" class="mono" font-size="10.5" font-weight="700" fill="#a78bfa">03 · LLM INFERENCE</text>
     
     <g transform="translate(14, 48)">
-      <text x="0" y="0" class="mono" font-size="9" fill="#a78bfa">ARQ + LLM Interface</text>
-      <text x="0" y="20" class="sans" font-size="12.5" font-weight="700" fill="#edfdf6">Inference &amp; Parsing</text>
-      <text x="0" y="44" class="sans" font-size="10" fill="#8e9d97">1. Worker dequeues task,</text>
-      <text x="0" y="60" class="sans" font-size="10" fill="#8e9d97">   sets status="processing"</text>
-      <text x="0" y="80" class="sans" font-size="10" fill="#8e9d97">2. Fetches file from S3 &amp;</text>
-      <text x="0" y="96" class="sans" font-size="10" fill="#8e9d97">   extracts document text</text>
-      <text x="0" y="116" class="sans" font-size="10" fill="#8e9d97">3. Prompts LLM for schema:</text>
-      <text x="0" y="132" class="sans" font-size="10" fill="#8e9d97">   skills, gaps, score, tips</text>
+      <text x="0" y="0" class="mono" font-size="9" fill="#a78bfa">Active Pipeline</text>
+      <text x="0" y="20" class="sans" font-size="12.5" font-weight="700" fill="#edfdf6">Ollama Analysis</text>
+      <text x="0" y="44" class="sans" font-size="10" fill="#8e9d97">1. API invokes ollama_service</text>
+      <text x="0" y="60" class="sans" font-size="10" fill="#8e9d97">   with extracted resume text</text>
+      <text x="0" y="80" class="sans" font-size="10" fill="#8e9d97">2. Model extracts key skills,</text>
+      <text x="0" y="96" class="sans" font-size="10" fill="#8e9d97">   skill gaps, and score</text>
+      <text x="0" y="116" class="sans" font-size="10" fill="#8e9d97">3. Returns structured JSON</text>
+      <text x="0" y="132" class="sans" font-size="10" fill="#8e9d97">   analysis payload</text>
       
       <rect x="0" y="160" width="178" height="44" rx="4" fill="#110a1c" stroke="rgba(139, 92, 246, 0.2)" stroke-width="1" />
-      <text x="8" y="176" class="mono" font-size="8.5" fill="#8e9d97">Model Providers:</text>
-      <text x="8" y="192" class="mono" font-size="9.5" font-weight="700" fill="#a78bfa">Ollama Local / Cloud API</text>
+      <text x="8" y="176" class="mono" font-size="8.5" fill="#8e9d97">Local Model Host:</text>
+      <text x="8" y="192" class="mono" font-size="9.5" font-weight="700" fill="#a78bfa">Ollama (Port 11434)</text>
     </g>
   </g>
 
@@ -130,14 +130,14 @@
       <text x="0" y="20" class="sans" font-size="12.5" font-weight="700" fill="#edfdf6">Structured Feedback</text>
       <text x="0" y="44" class="sans" font-size="10" fill="#8e9d97">1. Analysis output saved to</text>
       <text x="0" y="60" class="sans" font-size="10" fill="#8e9d97">   analysis_results table</text>
-      <text x="0" y="80" class="sans" font-size="10" fill="#8e9d97">2. Job transitions to status:</text>
-      <text x="0" y="96" class="sans" font-size="10" fill="#8e9d97">   "completed"</text>
-      <text x="0" y="116" class="sans" font-size="10" fill="#8e9d97">3. Client polls endpoint &amp;</text>
-      <text x="0" y="132" class="sans" font-size="10" fill="#8e9d97">   renders ATS breakdown</text>
+      <text x="0" y="80" class="sans" font-size="10" fill="#8e9d97">2. AnalysisJob status set to</text>
+      <text x="0" y="96" class="sans" font-size="10" fill="#8e9d97">   status="completed"</text>
+      <text x="0" y="116" class="sans" font-size="10" fill="#8e9d97">3. Next.js app renders ATS</text>
+      <text x="0" y="132" class="sans" font-size="10" fill="#8e9d97">   breakdown &amp; suggestions</text>
       
       <rect x="0" y="160" width="182" height="44" rx="4" fill="#06120d" stroke="rgba(0, 255, 156, 0.2)" stroke-width="1" />
-      <text x="8" y="176" class="mono" font-size="8.5" fill="#8e9d97">Final State:</text>
-      <text x="8" y="192" class="mono" font-size="9.5" font-weight="700" fill="#00ff9c">STATUS: COMPLETED</text>
+      <text x="8" y="176" class="mono" font-size="8.5" fill="#8e9d97">Active Status:</text>
+      <text x="8" y="192" class="mono" font-size="9.5" font-weight="700" fill="#00ff9c">COMPLETED (SYNC)</text>
     </g>
   </g>
 
@@ -145,7 +145,7 @@
   <g transform="translate(36, 416)">
     <rect x="0" y="0" width="888" height="48" rx="4" fill="#08100e" stroke="rgba(0, 247, 255, 0.15)" stroke-width="1" />
     <text x="16" y="28" class="mono" font-size="10" fill="#8e9d97">
-      RELIABILITY: Multi-tenant organization_id scoping · Asynchronous worker isolation · Retries on transient LLM failures
+      VERIFIED CODEBASE: Multipart file streaming · pypdf text extraction · Ollama local LLM inference · Organization-isolated DB
     </text>
   </g>
 </svg>

@@ -11,11 +11,6 @@
       <stop offset="100%" stop-color="#050a08" stop-opacity="0.95" />
     </linearGradient>
 
-    <filter id="mintGlowUjw" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="3" result="blur" />
-      <feComposite in="SourceGraphic" in2="blur" operator="over" />
-    </filter>
-
     <marker id="arrowMint" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 1 L 8 5 L 0 9 z" fill="#00ff9c" />
     </marker>
@@ -28,7 +23,7 @@
   </defs>
 
   <style>
-    .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; }
+    .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
     .sans { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
   </style>
 
@@ -73,7 +68,7 @@
       <g transform="translate(584, 0)">
         <rect x="0" y="0" width="272" height="50" rx="4" fill="#0c1d17" stroke="rgba(0, 255, 156, 0.3)" stroke-width="1" />
         <text x="12" y="20" class="mono" font-size="11" font-weight="700" fill="#edfdf6">Delivery Portal (/delivery)</text>
-        <text x="12" y="38" class="sans" font-size="10" fill="#8e9d97">Dispatch Route · Proof of Delivery (PoD)</text>
+        <text x="12" y="38" class="sans" font-size="10" fill="#8e9d97">Dispatch Route · Validated Proof of Delivery</text>
       </g>
     </g>
   </g>
@@ -87,10 +82,10 @@
   <g transform="translate(36, 222)">
     <rect x="0" y="0" width="888" height="154" rx="6" fill="url(#panelGrad)" stroke="rgba(0, 247, 255, 0.25)" stroke-width="1" />
     <text x="16" y="22" class="mono" font-size="10" font-weight="700" fill="#00f7ff" letter-spacing="0.1em">
-      02 · LARAVEL 13 MONOLITHIC APPLICATION CORE (PHP 8.5)
+      02 · LARAVEL 13 APPLICATION CORE (PHP 8.5 / 8.3)
     </text>
     <text x="874" y="22" text-anchor="end" class="mono" font-size="9.5" fill="#8e9d97">
-      RBAC · TRANSACTIONS · DOMAIN BOUNDARIES
+      VERIFIED DOMAIN MODULES · SYNCHRONOUS DB TRANSACTIONS
     </text>
 
     <!-- Five Domain Modules -->
@@ -99,46 +94,46 @@
       <g>
         <rect x="0" y="0" width="162" height="98" rx="4" fill="#09161a" stroke="rgba(0, 247, 255, 0.3)" stroke-width="1" />
         <text x="10" y="20" class="mono" font-size="10.5" font-weight="700" fill="#00f7ff">Order Module</text>
-        <text x="10" y="38" class="sans" font-size="9.5" fill="#edfdf6">Lifecycle States</text>
+        <text x="10" y="38" class="sans" font-size="9.5" fill="#edfdf6">Order Allocation Service</text>
         <text x="10" y="54" class="sans" font-size="9" fill="#8e9d97">Draft → Approved</text>
-        <text x="10" y="70" class="sans" font-size="9" fill="#8e9d97">Allocations Lock</text>
-        <text x="10" y="86" class="mono" font-size="8.5" fill="#00ff9c">Atomic DB Lock</text>
+        <text x="10" y="70" class="sans" font-size="9" fill="#8e9d97">Row lockForUpdate()</text>
+        <text x="10" y="86" class="mono" font-size="8.5" fill="#00ff9c">Pessimistic Lock [✓]</text>
       </g>
       <!-- Product Catalog & Pricing -->
       <g transform="translate(174, 0)">
         <rect x="0" y="0" width="162" height="98" rx="4" fill="#09161a" stroke="rgba(0, 247, 255, 0.3)" stroke-width="1" />
         <text x="10" y="20" class="mono" font-size="10.5" font-weight="700" fill="#00f7ff">Catalog &amp; Pricing</text>
-        <text x="10" y="38" class="sans" font-size="9.5" fill="#edfdf6">Tiered Pricing</text>
-        <text x="10" y="54" class="sans" font-size="9" fill="#8e9d97">Customer Price Bands</text>
-        <text x="10" y="70" class="sans" font-size="9" fill="#8e9d97">SKU Variations</text>
-        <text x="10" y="86" class="mono" font-size="8.5" fill="#00ff9c">Cached in Redis</text>
+        <text x="10" y="38" class="sans" font-size="9.5" fill="#edfdf6">Customer Price Bands</text>
+        <text x="10" y="54" class="sans" font-size="9" fill="#8e9d97">Category Hierarchies</text>
+        <text x="10" y="70" class="sans" font-size="9" fill="#8e9d97">Tax Profiles &amp; Rules</text>
+        <text x="10" y="86" class="mono" font-size="8.5" fill="#00ff9c">Cached via Redis [✓]</text>
       </g>
       <!-- Warehouse & Inventory -->
       <g transform="translate(348, 0)">
         <rect x="0" y="0" width="162" height="98" rx="4" fill="#09161a" stroke="rgba(0, 247, 255, 0.3)" stroke-width="1" />
         <text x="10" y="20" class="mono" font-size="10.5" font-weight="700" fill="#00f7ff">Warehouse Scope</text>
-        <text x="10" y="38" class="sans" font-size="9.5" fill="#edfdf6">Stock Fulfillment</text>
-        <text x="10" y="54" class="sans" font-size="9" fill="#8e9d97">Reservation Queue</text>
-        <text x="10" y="70" class="sans" font-size="9" fill="#8e9d97">Exceptions &amp; Damage</text>
-        <text x="10" y="86" class="mono" font-size="8.5" fill="#00ff9c">Audit Logging</text>
+        <text x="10" y="38" class="sans" font-size="9.5" fill="#edfdf6">Inventory Movement</text>
+        <text x="10" y="54" class="sans" font-size="9" fill="#8e9d97">Stock Discrepancy Log</text>
+        <text x="10" y="70" class="sans" font-size="9" fill="#8e9d97">Inventory Balances</text>
+        <text x="10" y="86" class="mono" font-size="8.5" fill="#00ff9c">Audit Logging [✓]</text>
       </g>
       <!-- Delivery Dispatch -->
       <g transform="translate(522, 0)">
         <rect x="0" y="0" width="162" height="98" rx="4" fill="#09161a" stroke="rgba(0, 247, 255, 0.3)" stroke-width="1" />
         <text x="10" y="20" class="mono" font-size="10.5" font-weight="700" fill="#00f7ff">Logistics &amp; PoD</text>
         <text x="10" y="38" class="sans" font-size="9.5" fill="#edfdf6">Route Assignment</text>
-        <text x="10" y="54" class="sans" font-size="9" fill="#8e9d97">Driver Confirmation</text>
-        <text x="10" y="70" class="sans" font-size="9" fill="#8e9d97">Signed Proof Upload</text>
-        <text x="10" y="86" class="mono" font-size="8.5" fill="#00ff9c">Presigned S3 URLs</text>
+        <text x="10" y="54" class="sans" font-size="9" fill="#8e9d97">Delivery Workflow</text>
+        <text x="10" y="70" class="sans" font-size="9" fill="#8e9d97">Magic-Byte JPEG/PNG</text>
+        <text x="10" y="86" class="mono" font-size="8.5" fill="#00ff9c">Evidence Store [✓]</text>
       </g>
       <!-- Financial Accounting -->
       <g transform="translate(696, 0)">
         <rect x="0" y="0" width="160" height="98" rx="4" fill="#09161a" stroke="rgba(0, 247, 255, 0.3)" stroke-width="1" />
-        <text x="10" y="20" class="mono" font-size="10.5" font-weight="700" fill="#00f7ff">Finance &amp; Ledger</text>
-        <text x="10" y="38" class="sans" font-size="9.5" fill="#edfdf6">Double-Entry Journal</text>
-        <text x="10" y="54" class="sans" font-size="9" fill="#8e9d97">Receivables Aging</text>
-        <text x="10" y="70" class="sans" font-size="9" fill="#8e9d97">Tax Invoices (PDF)</text>
-        <text x="10" y="86" class="mono" font-size="8.5" fill="#00ff9c">Payment Reconcile</text>
+        <text x="10" y="20" class="mono" font-size="10.5" font-weight="700" fill="#00f7ff">Double-Entry Ledger</text>
+        <text x="10" y="38" class="sans" font-size="9.5" fill="#edfdf6">Chart of Accounts</text>
+        <text x="10" y="54" class="sans" font-size="9" fill="#8e9d97">Journal Lines &amp; Balancing</text>
+        <text x="10" y="70" class="sans" font-size="9" fill="#8e9d97">Immutability Triggers</text>
+        <text x="10" y="86" class="mono" font-size="8.5" fill="#00ff9c">Fully Implemented [✓]</text>
       </g>
     </g>
   </g>
@@ -152,7 +147,7 @@
   <g transform="translate(36, 414)">
     <rect x="0" y="0" width="888" height="114" rx="6" fill="url(#panelGrad)" stroke="rgba(139, 92, 246, 0.25)" stroke-width="1" />
     <text x="16" y="22" class="mono" font-size="10" font-weight="700" fill="#a78bfa" letter-spacing="0.1em">
-      03 · PERSISTENCE &amp; CLOUD INFRASTRUCTURE
+      03 · PERSISTENCE &amp; STORAGE ARCHITECTURE
     </text>
 
     <g transform="translate(16, 32)">
@@ -160,22 +155,22 @@
       <g>
         <rect x="0" y="0" width="270" height="66" rx="4" fill="#110d1c" stroke="rgba(139, 92, 246, 0.3)" stroke-width="1" />
         <text x="12" y="20" class="mono" font-size="11" font-weight="700" fill="#a78bfa">PostgreSQL 18</text>
-        <text x="12" y="38" class="sans" font-size="10" fill="#edfdf6">Transactional Core Truth</text>
-        <text x="12" y="54" class="sans" font-size="9" fill="#8e9d97">Strict Foreign Keys · Isolation Levels</text>
+        <text x="12" y="38" class="sans" font-size="10" fill="#edfdf6">Authoritative Transactional Core</text>
+        <text x="12" y="54" class="sans" font-size="9" fill="#8e9d97">Pessimistic Row Locks · Immutability Triggers</text>
       </g>
       <!-- Redis 7 -->
       <g transform="translate(292, 0)">
         <rect x="0" y="0" width="270" height="66" rx="4" fill="#110d1c" stroke="rgba(139, 92, 246, 0.3)" stroke-width="1" />
         <text x="12" y="20" class="mono" font-size="11" font-weight="700" fill="#a78bfa">Redis 7 (Predis)</text>
-        <text x="12" y="38" class="sans" font-size="10" fill="#edfdf6">Queues &amp; Ephemeral Cache</text>
-        <text x="12" y="54" class="sans" font-size="9" fill="#8e9d97">Session Storage · Asynchronous Jobs</text>
+        <text x="12" y="38" class="sans" font-size="10" fill="#edfdf6">Session &amp; Ephemeral Cache</text>
+        <text x="12" y="54" class="sans" font-size="9" fill="#8e9d97">Active Session Store · Queue Connection Ready</text>
       </g>
-      <!-- Amazon S3 -->
+      <!-- Document Storage -->
       <g transform="translate(584, 0)">
         <rect x="0" y="0" width="272" height="66" rx="4" fill="#110d1c" stroke="rgba(139, 92, 246, 0.3)" stroke-width="1" />
-        <text x="12" y="20" class="mono" font-size="11" font-weight="700" fill="#a78bfa">Amazon S3 Storage</text>
-        <text x="12" y="38" class="sans" font-size="10" fill="#edfdf6">Private Document Bucket</text>
-        <text x="12" y="54" class="sans" font-size="9" fill="#8e9d97">Signed PoD Photos · Generated Invoices</text>
+        <text x="12" y="20" class="mono" font-size="11" font-weight="700" fill="#a78bfa">Document &amp; Evidence Storage</text>
+        <text x="12" y="38" class="sans" font-size="10" fill="#edfdf6">Private Disk [Active] · S3 Driver [Configured]</text>
+        <text x="12" y="54" class="sans" font-size="9" fill="#8e9d97">Magic-Byte Validated PoD Photos &amp; Invoices</text>
       </g>
     </g>
   </g>

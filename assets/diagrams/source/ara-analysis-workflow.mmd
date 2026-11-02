@@ -1,36 +1,29 @@
 %% ARA — Resume Analysis Pipeline Workflow
+%% Accurately reflecting Active Synchronous Execution & Target Async Decoupling
 sequenceDiagram
   autonumber
   actor User as Candidate / Recruiter
   participant Web as Next.js Web App
   participant API as FastAPI Gateway
-  participant S3 as MinIO / S3 Storage
-  participant Queue as Redis (ARQ Queue)
-  participant Worker as ARQ Analysis Worker
+  participant Disk as Server Disk (uploads/)
+  participant Parser as Resume Parser (pypdf)
+  participant LLM as Ollama LLM Service
   participant DB as PostgreSQL 18
-  participant LLM as LLM Engine (Ollama)
 
-  User->>Web: 1. Drop Resume (PDF/DOCX)
-  Web->>API: 2. POST /api/v1/resumes/upload-url
-  API-->>Web: 3. Return Presigned S3 Upload URL
-  Web->>S3: 4. Direct Upload Binary to Storage
-  Web->>API: 5. POST /api/v1/resumes/ (Confirm Metadata)
-  API->>DB: 6. Insert Record (tenant organization_id)
+  Note over User,Web: Active Pipeline Execution (Verified in Codebase)
+  User->>Web: 1. Select Resume Document (PDF)
+  Web->>API: 2. POST /api/v1/resumes/upload (Multipart)
+  API->>Disk: 3. Stream & Persist File to uploads/
+  API->>Parser: 4. Extract Text Content & Characters
+  API->>DB: 5. Insert Resume (scoped to organization_id)
+  API-->>Web: 6. Return 200 OK (resume_id, characters)
+  
   Web->>API: 7. POST /api/v1/analysis/jobs (Trigger Analysis)
-  API->>DB: 8. Insert Job (status: pending)
-  API->>Queue: 9. Enqueue Task (job_id, storage_key)
-  API-->>Web: 10. Return 202 Accepted (job_id)
-  
-  Queue->>Worker: 11. Dequeue Analysis Task
-  Worker->>DB: 12. Update Status -> processing
-  Worker->>S3: 13. Download & Parse Text
-  Worker->>LLM: 14. Prompt for Structured Skill & Gap Extraction
-  LLM-->>Worker: 15. Return Structured JSON Result
-  Worker->>DB: 16. Store Analysis JSON & Update Status -> completed
-  
-  loop Polling
-    Web->>API: 17. GET /api/v1/analysis/jobs/{job_id}
-    API->>DB: 18. Query Job Status
-    API-->>Web: 19. Return Completed Analysis Result
-  end
-  Web-->>User: 20. Render Structured Feedback & ATS Scoring
+  API->>DB: 8. Insert AnalysisJob (status: pending)
+  API->>LLM: 9. Prompt Ollama for Structured Extraction (Skills, ATS Score, Gaps)
+  LLM-->>API: 10. Return Structured Analysis JSON
+  API->>DB: 11. Insert AnalysisResult & Update Status -> COMPLETED
+  API-->>Web: 12. Return Job Status & Analysis Payload
+  Web-->>User: 13. Render Structured Skills, ATS Feedback & Recommendations
+
+  Note over API,DB: Planned Target Architecture: ARQ Background Worker Queue & Direct S3 Presigned Uploads

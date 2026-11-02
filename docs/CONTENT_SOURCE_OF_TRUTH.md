@@ -1,8 +1,8 @@
 # Content Source of Truth & Factual Positioning Matrix
 
 > **Profile Subject:** Angula Badrinath (GitHub: [@AngulaBadrinath](https://github.com/AngulaBadrinath))  
-> **Audited Date:** 2026-11-03  
-> **Verification Status:** Fully Audited against live repository manifests, codebases, and verified public presence.
+> **Audited Date:** 2026-11-03 (Release-Hardening Pass)  
+> **Verification Status:** Verified against live codebases, route definitions, models, database migrations, and dependency manifests.
 
 ---
 
@@ -13,7 +13,7 @@
 | **Full Name** | Angula Badrinath | GitHub profile, Portfolio website, LinkedIn | **High (Verified)** | Safe to publish |
 | **Headline / Role** | Software Engineer \| Full-Stack Development \| AI Applications | Aligned across `angula-portfolio` and profile README | **High (Verified)** | Safe to publish |
 | **Education** | B.Tech Graduate, 2026 | Confirmed in prompt guidelines and portfolio source (`FULL STACK DEVELOPER / 2026`). Omit "expected" or "currently pursuing"; no CGPA displayed. | **High (Verified)** | Safe to publish |
-| **Target Roles** | Full-Stack Developer, React/Frontend Developer, Node.js/Python Backend Developer, Associate Software Engineer, AI Application Developer | Supported by codebase depth in TypeScript, Python, React, and FastAPI | **High (Verified)** | Safe to publish |
+| **Target Roles** | Full-Stack Developer, React/Frontend Developer, Node.js/Python Backend Developer, Associate Software Engineer, AI Application Developer | Supported by codebase depth in TypeScript, Python, React, FastAPI, and Laravel | **High (Verified)** | Safe to publish |
 | **Location & Availability** | India · Open to full-time onsite, hybrid, and remote roles; open to relocation | Portfolio and LinkedIn metadata | **High (Verified)** | Safe to publish |
 | **Professional Experience (Industry)** | ~3 months as Python Developer at Programmica (Dec 2024 — Feb 2025) | `angula-portfolio/app/page.tsx` line 44; confirmed in prompt baseline. | **High (Verified)** | Safe to publish. Never inflate to 3+ years. |
 | **Client Work** | Universal Wholesale & Unique Jersey Wholesale | Verified client-facing full-stack delivery and open architecture codebase (`Unique-Distributors`). | **High (Verified)** | Safe to publish. Exclude proprietary customer data and private credentials. |
@@ -21,37 +21,40 @@
 
 ---
 
-## 2. Project Evidence Matrix
+## 2. Deep Project Architecture Cross-Check
 
-### 2.1 Flagship 01: Unique Jersey Wholesale (Wholesale Distribution Management System)
+### 2.1 Unique Jersey Wholesale (`Unique-Distributors`)
 - **Repository:** `https://github.com/AngulaBadrinath/Unique-Distributors` (Public)
-- **Verified Tech Stack:**
+- **Framework & Runtime Versions Verified:**
   - Backend: Laravel 13 (`laravel/framework: ^13.17`), PHP 8.3/8.5 (`composer.json`)
-  - Frontend: React 19 (`react: ^19.2.8`), TypeScript 7 (`typescript: ^7.0.2`), Inertia 3 (`@inertiajs/react: ^3.7.0`), Tailwind CSS 4, Vite 8
-  - Data & Cache: PostgreSQL 18, Redis 7 (`predis/predis: ^3.6`), Docker Compose
-  - Quality & QA: Playwright (`@playwright/test: ^1.63.0`), PHPUnit 12 (`phpunit/phpunit: ^12.5.12`), Pest harness
-- **Architecture Type:** Modular Monolith with Shared Transactional Core
-- **Operational Roles Implemented:**
-  1. *Admin Portal* (`/admin/*`): Review orders, approve quantity adjustments, manage inventory exceptions, coordinate deliveries.
-  2. *Salesman Portal* (`/salesman/*`): Mobile-first sales interface, catalog browsing, bounded price selection, order creation.
-  3. *Delivery Partner Portal* (`/delivery/*`): Task-first logistics, dispatch pickup, out-for-delivery, proof of delivery upload.
-  4. *Warehouse Manager Scope*: Stock reservation, inventory fulfillment, physical discrepancy logging.
-  5. *Accountant Scope*: Payment verification, receivable tracking, double-entry ledger integration.
-- **Publication Status:** **Safe & Recommended as Lead Project**. All architectural flows backed by `docs/AI_CONTEXT.md` and repository manifests.
+  - Frontend: React 19 (`react: ^19.2.8`), TypeScript 7 (`typescript: ^7.0.2`), Inertia 3 (`@inertiajs/react: ^3.7.0`), Tailwind CSS 4 (`tailwindcss: ^4.0.0`), Vite 8 (`vite: ^8.0.0`)
+  - Persistence: PostgreSQL 18, Redis 7 (`predis/predis: ^3.6`), Docker Compose
+  - Testing: Playwright (`@playwright/test: ^1.63.0`), PHPUnit 12 (`phpunit/phpunit: ^12.5.12`), Pest test harness
+- **Genuinely Implemented Capabilities (Verified in Codebase):**
+  - **Atomic Pessimistic Row Locking:** `OrderAllocationService.php` uses `DB::transaction()` with `Order::where(...)->lockForUpdate()` and `OrderItem::lockForUpdate()->orderBy('id', 'asc')` to deterministically prevent concurrency allocation race conditions.
+  - **Double-Entry General Ledger:** Full accounting subsystem verified: `GeneralLedgerService.php`, `JournalService.php`, `ChartOfAccountsTable`, `JournalEntriesAndLinesTables`, `BalanceSheetService.php`, `TrialBalanceService.php`. Database triggers enforce strict immutability on posted invoices and audit lines (`2026_09_06_000012_create_invoice_immutability_triggers.php`).
+  - **5 Role Scopes:** Implemented portals and permissioned scopes for Admin (`/admin/*`), Salesman (`/salesman/*`), Delivery (`/delivery/*`), Warehouse Manager, and Accountant.
+  - **Proof of Delivery (PoD):** `DeliveryEvidenceService.php` validates server-side magic-bytes (`\xFF\xD8\xFF` for JPEG, `\x89PNG\r\n\x1a\n` for PNG) and enforces a 5MB size ceiling.
+- **Configured vs. Active Architecture Nuances (Labeled Transparently):**
+  - **Storage:** Defaults to local private disk (`storage_path('app/private')`) with configuration hooks for S3 via `FILESYSTEM_DISK` and `config/filesystems.php`. Remote S3 is an architected driver option rather than an active cloud deployment.
+  - **Queues:** Synchronous domain transactions are active in the current application flow. Redis/Database queue connections are configured (`config/queue.php`) and table migrations exist (`create_jobs_table`), but `app/Jobs` does not host asynchronous background tasks in the current baseline.
 
 ---
 
-### 2.2 Flagship 02: ARA — AI Resume Analyzer
+### 2.2 ARA — AI Resume Analyzer (`ARA`)
 - **Repository:** `https://github.com/AngulaBadrinath/ARA` (Public)
-- **Verified Tech Stack:**
-  - Frontend: Next.js 15 (`apps/web`), React, TypeScript
-  - Backend API: FastAPI (`apps/api`), Python 3.12+, Pydantic v2
-  - Asynchronous Workers: ARQ background worker (`app/workers`), Redis (`port 6379`)
-  - Data & Storage: PostgreSQL (`port 5432`, SQLAlchemy ORM, Alembic migrations), MinIO / S3 object storage (`port 9000`)
-  - AI / LLM Layer: Provider abstraction (`app/llm`) with optional local Ollama (`port 11434`) integration
-- **Architecture Type:** Multi-Tenant Asynchronous Processing Architecture
-- **Status:** **Active Development / Architectural Implementation**. The data model, monorepo boundaries, worker queue, and S3 upload pipelines are implemented; endpoint business logic is in active development.
-- **Publication Policy:** Accurately presented as an active, architecturally structured multi-tenant system with asynchronous background workers. Do not claim millions of users or production SaaS revenue.
+- **Framework & Runtime Versions Verified:**
+  - Frontend: Next.js 15 (`apps/web`), React 19, TypeScript, Tailwind CSS
+  - Backend API: FastAPI (`apps/api`), Python 3.12+, Pydantic v2, SQLAlchemy ORM
+  - Persistence: PostgreSQL 18, Docker Compose
+  - LLM Inference: Local Ollama model integration (`apps/api/app/services/ollama_service.py`)
+- **Genuinely Implemented Capabilities (Verified in Codebase):**
+  - **Multi-Tenant Scoping:** All database entities enforce `organization_id` foreign keys and UUID primary keys. Endpoints require JWT authentication scoped to the user's tenant organization.
+  - **Multipart Ingestion:** `POST /api/v1/resumes/upload` streams uploaded PDF documents to local disk (`uploads/`) and invokes `resume_parser.py` (`pypdf`) for character extraction.
+  - **Synchronous LLM Pipeline:** `POST /api/v1/analysis/jobs` creates an `AnalysisJob` row in PostgreSQL, synchronously triggers `ollama_service.analyze_resume(text)`, stores structured JSON (skills, gaps, score) in `AnalysisRepository`, and marks status as `COMPLETED`.
+- **Target Blueprint vs. Active Implementation (Labeled Transparently):**
+  - **Asynchronous Workers (Target Blueprint):** `apps/api/app/workers/__init__.py` contains `WorkerSettings` and stubbed async job hooks (`analyze_resume_job`) for ARQ over Redis 7. This is documented in `architecture.md` as the target horizontal scaling blueprint, whereas the working implementation executes synchronously.
+  - **Direct S3 Presigned Uploads (Target Blueprint):** Target architecture specifies direct browser-to-S3 presigned uploads to bypass API buffering. The current working implementation utilizes direct multipart streaming to the FastAPI upload endpoint.
 
 ---
 
@@ -62,35 +65,26 @@
 
 ---
 
-### 2.4 Evaluated & Filtered Projects
+## 3. Security Audit & Credential Assessment (`ARA/.env.production`)
 
-| Project | Repository / Source | Evaluation Finding | Decision |
-|---|---|---|---|
-| **LinguaSync / Voice Translator** | `AngulaBadrinath/RealTime-VoiceTranslator` | Contains desktop speech recognition (PyAudio, gTTS, speech_recognition). Upstream history indicates a single "fresh init" commit with GPL v2 license and binary distributions. Provenance is partially upstream/learning-based. | **Included as secondary learning/exploratory project** with transparent attribution. Not featured as a primary flagship system. |
-| **Real-Time Data Visualization** | `AngulaBadrinath/RealTime_SampleData-amazon` | Previously removed by developer from resume. Contains mock Amazon stream visualizations. | **Excluded entirely** per prompt instructions. |
-| **angula-portfolio** | `AngulaBadrinath/angula-portfolio` | Personal portfolio website (Next.js 15, Tailwind CSS, dark neon aesthetic). | **Referenced as live portfolio link**; repository code reserved for separate phase. |
-
----
-
-## 3. Technology Inventory & Confidence Tiers
-
-```text
-+--------------------------------------------------------------------------------+
-| TIER 1: HIGH CONFIDENCE (Hands-on Project & Production Use)                    |
-| - JavaScript, TypeScript, React 19, Next.js 15, Tailwind CSS                   |
-| - Python 3.12+, FastAPI, Node.js, Express.js, PHP, Laravel 13, REST APIs      |
-| - PostgreSQL, Redis, MinIO / S3-compatible storage                             |
-| - Docker, Docker Compose, Git, GitHub Actions, Linux CLI, Playwright           |
-+--------------------------------------------------------------------------------+
-| TIER 2: WORKING FAMILIARITY (Integrated in Components or Freelance Work)       |
-| - Inertia.js, MongoDB, MySQL, Alembic, ARQ Worker Queue, Pydantic, Vite        |
-| - AWS (EC2, RDS, Route 53 basics), Sentry, WebSockets, JWT Authentication     |
-+--------------------------------------------------------------------------------+
-| TIER 3: CURRENTLY EXPLORING (Active Engineering Studies & Prototypes)           |
-| - Local LLM integration (Ollama), Provider-agnostic LLM pipelines, RAG patterns|
-| - Cloud Infrastructure as Code, Scaled Microservices                          |
-+--------------------------------------------------------------------------------+
-```
+- **Audit Trigger:** Mandatory security review of tracked configuration files in public repositories.
+- **Local Inspection Result:**
+  - Inspected `ARA/.env.production` locally without logging, copying, or committing any secret values.
+  - Network endpoints (`DATABASE_URL`, `REDIS_URL`, `S3_ENDPOINT`, `LLM_API_BASE`) point to internal Docker container service names (`db`, `redis`, `minio:9000`, `ollama:11434`), rather than public cloud endpoints or AWS ARNs.
+  - However, custom non-trivial strings are present for `SECRET_KEY`, database password, and S3 access/secret keys.
+- **Risk Assessment:**
+  - Committed secrets in public repositories create exposure risks if credentials or patterns are reused across environments, and trigger automated scanning alerts (GitGuardian / GitHub Secret Scanning).
+- **Remediation & Rotation Advisory (for Repository Owner):**
+  1. Immediately rotate the JWT `SECRET_KEY`, PostgreSQL user password, and MinIO access/secret keys if any of these values were reused in personal or staging infrastructure.
+  2. Untrack `.env.production` from Git:
+     ```bash
+     git rm --cached .env.production
+     echo ".env.production" >> .gitignore
+     git commit -m "chore(security): untrack .env.production"
+     git push
+     ```
+  3. If history purging is required, use `git-filter-repo` to redact the commit that introduced the file.
+- **Profile Task Boundary:** Strictly maintained. No files inside `AngulaBadrinath/ARA` were modified or committed in this task.
 
 ---
 
@@ -98,5 +92,6 @@
 
 - [x] No fabricated star counts, download numbers, or uptime claims.
 - [x] No inflated years of experience (accurately reflects 2026 graduation and ~3mo Programmica internship + client projects).
-- [x] No speculative or unverified certifications.
-- [x] Clear demarcation between client deliveries, active open-source architectures, and exploratory prototypes.
+- [x] Explicit demarcation between active codebase implementations and target architectural blueprints.
+- [x] Distinct segregation between Unique Jersey Wholesale (open architecture) and Universal Wholesale (private client case study).
+- [x] Zero secrets, tokens, or credentials published.

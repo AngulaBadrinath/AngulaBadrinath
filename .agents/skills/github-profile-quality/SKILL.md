@@ -74,3 +74,4 @@ node scripts/validate-profile-assets.mjs
 # 3. Check Git branch status
 git status --short
 ```
+

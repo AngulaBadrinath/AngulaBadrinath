@@ -43,3 +43,4 @@ Every SVG asset in this repository complies with the following strict constraint
 - **Zero Foreign Objects:** No `<foreignObject>` tags that could fail in GitHub's sanitized image proxy (Camo).
 - **Responsive ViewBox:** Configured with percentage width (`width="100%"`) and standard aspect ratios to guarantee crisp scaling from mobile viewports (360px) to ultra-wide desktop screens (1920px+).
 - **Theme Contrast:** Colors carefully selected to maintain legibility in GitHub Dark and Dark High Contrast modes while retaining clear borders and ink contrast in Light mode.
+

@@ -141,7 +141,7 @@ Stack: Laravel 13 · PHP 8.5 · React 19 · TypeScript 7 · Inertia.js 3 · Tail
   3. *Delivery Partner Portal* (`/delivery/*`): Task-oriented dispatch routes, recipient sign-off, and photographic Proof of Delivery (PoD) uploads.
   4. *Warehouse Scope*: Real-time stock reservation, physical discrepancy logging, and pick-and-pack fulfillment.
   5. *Accountant Scope*: Receivables tracking, double-entry ledger postings, and automated PDF tax invoices.
-- **Engineering Highlights:** Atomic database locks on stock reservation to eliminate overselling; private Amazon S3 document bucket for presigned proof uploads; Playwright end-to-end browser test harness and PHPUnit/Pest test coverage.
+- **Engineering Highlights:** Atomic database row locks (`lockForUpdate()`) on line item allocations to eliminate race conditions; genuinely implemented double-entry general ledger with immutability database triggers; server-side magic-byte validated proof of delivery (JPEG/PNG) with local private disk storage and configured S3 remote driver; Playwright end-to-end browser test harness and PHPUnit/Pest test coverage.
 - [Jump to Architecture Diagram & Source](#unique-jersey-wholesale-modular-monolith-architecture) · [Jump to Workflow Diagram](#unique-jersey-wholesale-operational-lifecycle-workflow)
 
 ---
@@ -152,16 +152,15 @@ Stack: Laravel 13 · PHP 8.5 · React 19 · TypeScript 7 · Inertia.js 3 · Tail
 > Public Repository: [AngulaBadrinath/ARA](https://github.com/AngulaBadrinath/ARA) · **Status:** Active Architectural Implementation & Monorepo
 
 ```text
-Stack: Next.js 15 (App Router) · FastAPI · Python 3.12+ · PostgreSQL 18 · Redis 7 · MinIO / S3 · ARQ Worker · Ollama LLM · Docker Compose
+Stack: Next.js 15 (App Router) · FastAPI · Python 3.12+ · PostgreSQL 18 · Docker Compose · Ollama LLM
+Architecture: Multi-Tenant Ingestion & Synchronous LLM Pipeline [Active] · ARQ Worker Queue & S3 Presigned Uploads [Target Blueprint]
 ```
 
-- **Problem:** Synchronous AI parsing of multi-page resumes causes high latency, request timeouts, and server memory exhaustion during document extraction and LLM inference.
-- **Solution & Architecture:** Architected a decoupled, asynchronous multi-tenant system with clear domain boundaries:
-  - *Direct S3 Upload:* Browser requests a short-lived presigned upload URL from FastAPI and uploads resumes directly to MinIO/S3, eliminating file-buffering load on the API gateway.
-  - *Async Job Dispatch:* FastAPI validates metadata, generates a pending job record scoped to the tenant's `organization_id`, and enqueues the task into Redis.
-  - *Worker Execution:* An independent ARQ background worker dequeues the job, retrieves the document binary from S3, extracts text, and invokes a provider-agnostic LLM interface (supporting local Ollama or cloud models).
-  - *Structured Persistence:* The worker stores structured JSON (detected skills, gap analysis, ATS score, and targeted recommendations) into PostgreSQL and marks the job completed for client polling.
-- **Engineering Highlights:** Strict multi-tenant data isolation; zero API file buffering; provider-agnostic LLM interface abstraction (`app/llm`); full Docker Compose local infrastructure.
+- **Problem:** Parsing multi-page resumes requires reliable document text extraction, tenant data isolation, and structured AI evaluation without exposing underlying model prompts or leaking cross-tenant data.
+- **Solution & Architecture:** Designed and implemented a multi-tenant resume intelligence platform:
+  - *Active Working Pipeline:* Next.js 15 frontend streams PDF documents via multipart upload to FastAPI (`/resumes/upload`); server extracts character text via `pypdf`, persists metadata scoped to tenant `organization_id`, triggers Ollama local LLM inference via structured prompting, and commits detected skills, gap analysis, and ATS scoring into PostgreSQL.
+  - *Target High-Throughput Blueprint:* Monorepo architecture documents horizontal scaling via direct browser-to-S3 presigned uploads and decoupled asynchronous ARQ worker processes (`app/workers`) over Redis 7.
+- **Engineering Highlights:** Strict multi-tenant data isolation (`organization_id` foreign keys, UUID primary keys); direct `pypdf` extraction; synchronous Ollama local model inference; provider-agnostic LLM interface design; full Docker Compose containerization.
 - [Jump to Architecture Diagram & Source](#ara-multi-tenant-asynchronous-architecture) · [Jump to Pipeline Workflow](#ara-resume-analysis-pipeline-workflow)
 
 ---
@@ -249,13 +248,13 @@ Deep technical architectural blueprints and execution sequences for featured sys
   <br />
 
   ```text
-  Pattern: Decoupled Multi-Tenant Asynchronous Processing Monorepo
+  Pattern: Multi-Tenant Architecture & Ingestion Pipeline
   Tiers:
-    1. Frontend (apps/web): Next.js 15 App Router handling UI and direct presigned S3 uploads.
+    1. Frontend (apps/web): Next.js 15 App Router handling UI and file uploads.
     2. API Gateway (apps/api): FastAPI with Pydantic v2 schemas and JWT tenant-scoped authorization.
-    3. Async Queue & Workers: Redis 7 message broker with independent ARQ worker processes.
-    4. AI Engine: Provider-agnostic LLM interface (app/llm) supporting local Ollama or cloud models.
-    5. Persistence: PostgreSQL 18 with tenant-scoped tables and MinIO/S3 object storage.
+    3. Active Inference: Synchronous Ollama LLM integration and pypdf text extraction [Verified Active].
+    4. Target Scaled Tiers: ARQ background worker processes over Redis 7 & direct S3 presigned uploads [Architectural Blueprint].
+    5. Persistence: PostgreSQL 18 with tenant-scoped tables (organization_id) and container disk volume.
   ```
 
   Editable diagram source: [`assets/diagrams/source/ara-architecture.mmd`](./assets/diagrams/source/ara-architecture.mmd)
@@ -274,12 +273,13 @@ Deep technical architectural blueprints and execution sequences for featured sys
   <br />
 
   ```text
-  Pipeline Flow:
-    1. Client requests presigned upload URL from FastAPI.
-    2. Browser uploads document directly to MinIO/S3 (zero API file buffering).
-    3. Client confirms upload; API inserts resume record and enqueues task in Redis.
-    4. ARQ Worker dequeues task, extracts text, calls LLM via structured schema.
-    5. Structured results persisted to PostgreSQL; job marked completed for client display.
+  Active Pipeline Flow:
+    1. Client uploads document via multipart to FastAPI POST /api/v1/resumes/upload.
+    2. File streamed to server disk and text extracted via pypdf.
+    3. API creates tenant-scoped Resume record and AnalysisJob in PostgreSQL.
+    4. Ollama LLM invoked for structured skill detection, gap analysis, and ATS scoring.
+    5. AnalysisResult JSON persisted to DB; job status updated to COMPLETED.
+    6. Next.js displays structured analysis feedback and improvement suggestions.
   ```
 
   Editable diagram source: [`assets/diagrams/source/ara-analysis-workflow.mmd`](./assets/diagrams/source/ara-analysis-workflow.mmd)

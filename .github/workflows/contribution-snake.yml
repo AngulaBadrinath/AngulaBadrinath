@@ -1,6 +1,6 @@
 name: Generate Contribution Snake Animation
 
-on:
+'on':
   schedule:
     # Run daily at 03:00 UTC
     - cron: '0 3 * * *'
@@ -36,3 +36,4 @@ jobs:
             git commit -m "chore(snake): update contribution grid animation [skip ci]"
             git push
           fi
+
