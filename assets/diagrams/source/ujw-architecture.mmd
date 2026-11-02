@@ -1,0 +1,53 @@
+%% Unique Jersey Wholesale — Modular Monolith Architecture
+flowchart TB
+  subgraph CLIENT["Client Tier (SPA / Inertia.js)"]
+    AdminUI["Admin Portal\n(React 19 + TypeScript)"]
+    SalesUI["Salesman Portal\n(Mobile-First React)"]
+    DeliveryUI["Delivery Partner Portal\n(Task Workspace)"]
+  end
+
+  subgraph CORE["Laravel 13 Application Core (PHP 8.5)"]
+    Router["Inertia Router & Middleware\n(RBAC / Session Auth)"]
+    
+    subgraph MODULES["Domain Modules"]
+      OrderMod["Order Management & Allocations"]
+      CatalogMod["Product Catalog & Dynamic Pricing"]
+      InventoryMod["Warehouse Inventory & Reservations"]
+      DeliveryMod["Logistics & Dispatch Coordination"]
+      FinanceMod["Invoicing & Double-Entry Ledger"]
+    end
+  end
+
+  subgraph STORAGE["Persistence & Infrastructure"]
+    PG[("PostgreSQL 18\nTransactional Truth")]
+    Redis[("Redis 7 (Predis)\nQueues & Cache")]
+    S3[("Amazon S3\nPresigned Proof & Invoices")]
+  end
+
+  subgraph QA["Testing & Quality Assurance"]
+    Playwright["Playwright E2E Test Suite"]
+    Pest["Pest / PHPUnit 12 Test Harness"]
+  end
+
+  AdminUI --> Router
+  SalesUI --> Router
+  DeliveryUI --> Router
+
+  Router --> OrderMod
+  Router --> CatalogMod
+  Router --> InventoryMod
+  Router --> DeliveryMod
+  Router --> FinanceMod
+
+  OrderMod --> PG
+  CatalogMod --> PG
+  InventoryMod --> PG
+  DeliveryMod --> PG
+  FinanceMod --> PG
+
+  OrderMod --> Redis
+  InventoryMod --> Redis
+  DeliveryMod --> S3
+
+  Playwright -.-> CLIENT
+  Pest -.-> CORE

@@ -1,0 +1,19 @@
+%% Unique Jersey Wholesale — End-to-End Operational Lifecycle
+sequenceDiagram
+  autonumber
+  actor Salesman as Salesman (/salesman)
+  actor Admin as Operations Admin (/admin)
+  actor Warehouse as Warehouse Manager
+  actor Driver as Delivery Partner (/delivery)
+  actor Accountant as Accountant (/finance)
+
+  Salesman->>Admin: 1. Create B2B Order (Catalog, Pricing Tiers, Quantities)
+  Note over Admin: Review order parameters & credit limit
+  Admin->>Warehouse: 2. Approve Order & Trigger Stock Allocation
+  Note over Warehouse: Reserve stock, handle physical exceptions
+  Warehouse->>Driver: 3. Pack Confirmed Inventory & Assign Dispatch
+  Note over Driver: Pickup items, transit to wholesale store
+  Driver->>Admin: 4. Complete Delivery & Upload Signed Proof (S3)
+  Admin->>Accountant: 5. Transition to Fulfilled Status
+  Note over Accountant: Generate tax invoice, ledger entries, receivables tracking
+  Accountant-->>Salesman: 6. Order Settled & Commission Recorded

@@ -1,0 +1,41 @@
+%% ARA — AI Resume Analyzer Architecture
+flowchart TB
+  subgraph FRONTEND["Frontend Tier (apps/web)"]
+    Web["Next.js 15 Web Application\n(React 19, TypeScript, Tailwind)"]
+  end
+
+  subgraph API["Backend API Tier (apps/api)"]
+    FastAPI["FastAPI 0.115+ (Python 3.12+)\n(Pydantic v2, JWT Auth, Multi-Tenancy)"]
+    Router["Endpoints: /resumes, /analysis/jobs"]
+    FastAPI --> Router
+  end
+
+  subgraph ASYNC["Async Processing Tier"]
+    Redis[("Redis 7\nARQ Message Broker")]
+    Worker["ARQ Background Worker\n(Async Job Processor)"]
+  end
+
+  subgraph STORAGE["Data & Storage Tier"]
+    PG[("PostgreSQL 18\nTenant-Scoped DB (UUIDs)")]
+    MinIO[("MinIO / S3 Object Storage\nDirect Presigned Resume Uploads")]
+  end
+
+  subgraph AI["AI Inference Tier"]
+    LLM["Provider-Agnostic LLM Interface\n(app/llm)"]
+    Ollama["Ollama Local Model (port 11434)\n/ Cloud Model Provider"]
+    LLM --> Ollama
+  end
+
+  Web -->|1. Request Presigned URL| FastAPI
+  Web -->|2. Upload File Directly| MinIO
+  Web -->|3. Trigger Analysis Job| FastAPI
+  
+  FastAPI -->|Enqueue Task| Redis
+  FastAPI -->|Persist Metadata| PG
+  
+  Worker -->|Dequeue Job| Redis
+  Worker -->|Fetch Document| MinIO
+  Worker -->|Execute Extraction| LLM
+  Worker -->|Write Analysis JSON| PG
+
+  Web -.->|Poll Job Status| FastAPI

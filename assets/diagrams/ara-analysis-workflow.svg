@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="araWfBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050505" />
+      <stop offset="50%" stop-color="#070c0a" />
+      <stop offset="100%" stop-color="#040605" />
+    </linearGradient>
+
+    <linearGradient id="stepGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a1512" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#060c09" stop-opacity="0.95" />
+    </linearGradient>
+
+    <marker id="wfM" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#00ff9c" />
+    </marker>
+    <marker id="wfC" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#00f7ff" />
+    </marker>
+    <marker id="wfV" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#8b5cf6" />
+    </marker>
+  </defs>
+
+  <style>
+    .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; }
+    .sans { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  </style>
+
+  <!-- Background -->
+  <rect width="960" height="500" fill="url(#araWfBg)" />
+  <rect x="1" y="1" width="958" height="498" fill="none" stroke="rgba(0, 247, 255, 0.2)" stroke-width="1.5" />
+
+  <!-- Header -->
+  <g transform="translate(36, 28)">
+    <rect x="0" y="0" width="888" height="34" rx="4" fill="#081012" stroke="rgba(0, 247, 255, 0.25)" stroke-width="1" />
+    <circle cx="16" cy="17" r="4" fill="#00f7ff" />
+    <text x="28" y="21" class="mono" font-size="11" font-weight="700" fill="#00f7ff" letter-spacing="0.1em">
+      ASYNCHRONOUS PIPELINE · RESUME INGESTION &amp; STRUCTURED LLM ANALYSIS
+    </text>
+    <text x="874" y="21" text-anchor="end" class="mono" font-size="10" fill="#8e9d97">
+      DIRECT S3 UPLOAD · ARQ QUEUE · STRUCTURED JSON
+    </text>
+  </g>
+
+  <!-- 4 PRIMARY WORKFLOW STAGES (Horizontal cards) -->
+  <!-- STEP 1: Direct Upload -->
+  <g transform="translate(36, 88)">
+    <rect x="0" y="0" width="206" height="300" rx="6" fill="url(#stepGrad)" stroke="rgba(0, 255, 156, 0.3)" stroke-width="1.2" />
+    <rect x="0" y="0" width="206" height="32" rx="6" fill="#0c231a" />
+    <text x="12" y="21" class="mono" font-size="10.5" font-weight="700" fill="#00ff9c">01 · SECURE UPLOAD</text>
+    
+    <g transform="translate(14, 48)">
+      <text x="0" y="0" class="mono" font-size="9" fill="#00ff9c">Presigned Flow</text>
+      <text x="0" y="20" class="sans" font-size="12.5" font-weight="700" fill="#edfdf6">Direct S3 Ingest</text>
+      <text x="0" y="44" class="sans" font-size="10" fill="#8e9d97">1. Next.js asks FastAPI for</text>
+      <text x="0" y="60" class="sans" font-size="10" fill="#8e9d97">   presigned upload URL</text>
+      <text x="0" y="80" class="sans" font-size="10" fill="#8e9d97">2. Browser uploads binary</text>
+      <text x="0" y="96" class="sans" font-size="10" fill="#8e9d97">   straight to MinIO / S3</text>
+      <text x="0" y="116" class="sans" font-size="10" fill="#8e9d97">3. Confirm resume metadata</text>
+      <text x="0" y="132" class="sans" font-size="10" fill="#8e9d97">   persisted in PostgreSQL</text>
+      
+      <rect x="0" y="160" width="178" height="44" rx="4" fill="#06120d" stroke="rgba(0, 255, 156, 0.2)" stroke-width="1" />
+      <text x="8" y="176" class="mono" font-size="8.5" fill="#8e9d97">Advantage:</text>
+      <text x="8" y="192" class="mono" font-size="9.5" font-weight="700" fill="#00ff9c">Zero API File Buffering</text>
+    </g>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="244" y1="238" x2="260" y2="238" stroke="#00ff9c" stroke-width="2" marker-end="url(#wfM)" />
+
+  <!-- STEP 2: Enqueue Job -->
+  <g transform="translate(262, 88)">
+    <rect x="0" y="0" width="206" height="300" rx="6" fill="url(#stepGrad)" stroke="rgba(0, 247, 255, 0.3)" stroke-width="1.2" />
+    <rect x="0" y="0" width="206" height="32" rx="6" fill="#082229" />
+    <text x="12" y="21" class="mono" font-size="10.5" font-weight="700" fill="#00f7ff">02 · DISPATCH QUEUE</text>
+    
+    <g transform="translate(14, 48)">
+      <text x="0" y="0" class="mono" font-size="9" fill="#00f7ff">FastAPI → Redis</text>
+      <text x="0" y="20" class="sans" font-size="12.5" font-weight="700" fill="#edfdf6">Non-Blocking Queue</text>
+      <text x="0" y="44" class="sans" font-size="10" fill="#8e9d97">1. Trigger analysis task via</text>
+      <text x="0" y="60" class="sans" font-size="10" fill="#8e9d97">   POST /api/v1/analysis/jobs</text>
+      <text x="0" y="80" class="sans" font-size="10" fill="#8e9d97">2. Creates job entry with</text>
+      <text x="0" y="96" class="sans" font-size="10" fill="#8e9d97">   status="pending"</text>
+      <text x="0" y="116" class="sans" font-size="10" fill="#8e9d97">3. Enqueues task into Redis</text>
+      <text x="0" y="132" class="sans" font-size="10" fill="#8e9d97">   returns 202 Accepted</text>
+      
+      <rect x="0" y="160" width="178" height="44" rx="4" fill="#061217" stroke="rgba(0, 247, 255, 0.2)" stroke-width="1" />
+      <text x="8" y="176" class="mono" font-size="8.5" fill="#8e9d97">Queue Broker:</text>
+      <text x="8" y="192" class="mono" font-size="9.5" font-weight="700" fill="#00f7ff">Redis 7 + ARQ Worker</text>
+    </g>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="470" y1="238" x2="486" y2="238" stroke="#00f7ff" stroke-width="2" marker-end="url(#wfC)" />
+
+  <!-- STEP 3: Async Worker & LLM -->
+  <g transform="translate(488, 88)">
+    <rect x="0" y="0" width="206" height="300" rx="6" fill="url(#stepGrad)" stroke="rgba(139, 92, 246, 0.3)" stroke-width="1.2" />
+    <rect x="0" y="0" width="206" height="32" rx="6" fill="#1b122c" />
+    <text x="12" y="21" class="mono" font-size="10.5" font-weight="700" fill="#a78bfa">03 · ASYNC EXTRACTION</text>
+    
+    <g transform="translate(14, 48)">
+      <text x="0" y="0" class="mono" font-size="9" fill="#a78bfa">ARQ + LLM Interface</text>
+      <text x="0" y="20" class="sans" font-size="12.5" font-weight="700" fill="#edfdf6">Inference &amp; Parsing</text>
+      <text x="0" y="44" class="sans" font-size="10" fill="#8e9d97">1. Worker dequeues task,</text>
+      <text x="0" y="60" class="sans" font-size="10" fill="#8e9d97">   sets status="processing"</text>
+      <text x="0" y="80" class="sans" font-size="10" fill="#8e9d97">2. Fetches file from S3 &amp;</text>
+      <text x="0" y="96" class="sans" font-size="10" fill="#8e9d97">   extracts document text</text>
+      <text x="0" y="116" class="sans" font-size="10" fill="#8e9d97">3. Prompts LLM for schema:</text>
+      <text x="0" y="132" class="sans" font-size="10" fill="#8e9d97">   skills, gaps, score, tips</text>
+      
+      <rect x="0" y="160" width="178" height="44" rx="4" fill="#110a1c" stroke="rgba(139, 92, 246, 0.2)" stroke-width="1" />
+      <text x="8" y="176" class="mono" font-size="8.5" fill="#8e9d97">Model Providers:</text>
+      <text x="8" y="192" class="mono" font-size="9.5" font-weight="700" fill="#a78bfa">Ollama Local / Cloud API</text>
+    </g>
+  </g>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="696" y1="238" x2="712" y2="238" stroke="#8b5cf6" stroke-width="2" marker-end="url(#wfV)" />
+
+  <!-- STEP 4: Store & Display -->
+  <g transform="translate(714, 88)">
+    <rect x="0" y="0" width="210" height="300" rx="6" fill="url(#stepGrad)" stroke="rgba(0, 255, 156, 0.3)" stroke-width="1.2" />
+    <rect x="0" y="0" width="210" height="32" rx="6" fill="#0c231a" />
+    <text x="12" y="21" class="mono" font-size="10.5" font-weight="700" fill="#00ff9c">04 · PERSIST &amp; DISPLAY</text>
+    
+    <g transform="translate(14, 48)">
+      <text x="0" y="0" class="mono" font-size="9" fill="#00ff9c">PostgreSQL → Next.js</text>
+      <text x="0" y="20" class="sans" font-size="12.5" font-weight="700" fill="#edfdf6">Structured Feedback</text>
+      <text x="0" y="44" class="sans" font-size="10" fill="#8e9d97">1. Analysis output saved to</text>
+      <text x="0" y="60" class="sans" font-size="10" fill="#8e9d97">   analysis_results table</text>
+      <text x="0" y="80" class="sans" font-size="10" fill="#8e9d97">2. Job transitions to status:</text>
+      <text x="0" y="96" class="sans" font-size="10" fill="#8e9d97">   "completed"</text>
+      <text x="0" y="116" class="sans" font-size="10" fill="#8e9d97">3. Client polls endpoint &amp;</text>
+      <text x="0" y="132" class="sans" font-size="10" fill="#8e9d97">   renders ATS breakdown</text>
+      
+      <rect x="0" y="160" width="182" height="44" rx="4" fill="#06120d" stroke="rgba(0, 255, 156, 0.2)" stroke-width="1" />
+      <text x="8" y="176" class="mono" font-size="8.5" fill="#8e9d97">Final State:</text>
+      <text x="8" y="192" class="mono" font-size="9.5" font-weight="700" fill="#00ff9c">STATUS: COMPLETED</text>
+    </g>
+  </g>
+
+  <!-- Bottom Legend Bar -->
+  <g transform="translate(36, 416)">
+    <rect x="0" y="0" width="888" height="48" rx="4" fill="#08100e" stroke="rgba(0, 247, 255, 0.15)" stroke-width="1" />
+    <text x="16" y="28" class="mono" font-size="10" fill="#8e9d97">
+      RELIABILITY: Multi-tenant organization_id scoping · Asynchronous worker isolation · Retries on transient LLM failures
+    </text>
+  </g>
+</svg>

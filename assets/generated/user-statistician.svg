@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 495 195" width="100%" height="100%">
+  <defs>
+    <linearGradient id="statBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0d0d" />
+      <stop offset="100%" stop-color="#060909" />
+    </linearGradient>
+  </defs>
+  <style>
+    .stat-mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+    .stat-sans { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  </style>
+
+  <rect width="495" height="195" rx="6" fill="url(#statBg)" stroke="rgba(0, 255, 156, 0.3)" stroke-width="1.2" />
+  
+  <!-- Title Bar -->
+  <g transform="translate(20, 24)">
+    <circle cx="6" cy="6" r="4" fill="#00ff9c" />
+    <text x="18" y="10" class="stat-mono" font-size="12" font-weight="700" fill="#00ff9c" letter-spacing="0.08em">
+      ANGULA BADRINATH · ACTIVITY STATS
+    </text>
+  </g>
+  <line x1="20" y1="46" x2="475" y2="46" stroke="rgba(180, 255, 230, 0.15)" stroke-width="1" />
+
+  <!-- Metrics Grid -->
+  <g transform="translate(28, 68)">
+    <!-- Column 1 -->
+    <g>
+      <text x="0" y="0" class="stat-sans" font-size="11" fill="#8e9d97">Engineering Focus</text>
+      <text x="0" y="18" class="stat-mono" font-size="13" font-weight="700" fill="#edfdf6">Full-Stack &amp; AI</text>
+      
+      <text x="0" y="48" class="stat-sans" font-size="11" fill="#8e9d97">Primary Dialect</text>
+      <text x="0" y="66" class="stat-mono" font-size="13" font-weight="700" fill="#00f7ff">TypeScript &amp; Python</text>
+    </g>
+
+    <!-- Column 2 -->
+    <g transform="translate(160, 0)">
+      <text x="0" y="0" class="stat-sans" font-size="11" fill="#8e9d97">System Architecture</text>
+      <text x="0" y="18" class="stat-mono" font-size="13" font-weight="700" fill="#edfdf6">Modular Monoliths &amp; Async</text>
+      
+      <text x="0" y="48" class="stat-sans" font-size="11" fill="#8e9d97">Core Runtimes</text>
+      <text x="0" y="66" class="stat-mono" font-size="13" font-weight="700" fill="#00ff9c">FastAPI · Node · Laravel</text>
+    </g>
+
+    <!-- Column 3 -->
+    <g transform="translate(330, 0)">
+      <text x="0" y="0" class="stat-sans" font-size="11" fill="#8e9d97">Persistence</text>
+      <text x="0" y="18" class="stat-mono" font-size="13" font-weight="700" fill="#edfdf6">PostgreSQL 18</text>
+      
+      <text x="0" y="48" class="stat-sans" font-size="11" fill="#8e9d97">CI &amp; Testing</text>
+      <text x="0" y="66" class="stat-mono" font-size="13" font-weight="700" fill="#8b5cf6">Playwright &amp; Actions</text>
+    </g>
+  </g>
+
+  <!-- Card Footer -->
+  <line x1="20" y1="162" x2="475" y2="162" stroke="rgba(180, 255, 230, 0.12)" stroke-width="1" />
+  <g transform="translate(20, 180)">
+    <text x="0" y="0" class="stat-mono" font-size="9" fill="#8e9d97">AUTOMATION: UPDATED VIA GITHUB ACTIONS (USER-STATISTICIAN)</text>
+    <text x="455" y="0" text-anchor="end" class="stat-mono" font-size="9" fill="#00ff9c">● LIVE METRICS</text>
+  </g>
+</svg>

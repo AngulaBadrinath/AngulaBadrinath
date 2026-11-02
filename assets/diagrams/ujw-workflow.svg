@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="wfBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050505" />
+      <stop offset="50%" stop-color="#070c0a" />
+      <stop offset="100%" stop-color="#040605" />
+    </linearGradient>
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a1612" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#060c09" stop-opacity="0.95" />
+    </linearGradient>
+
+    <marker id="wfArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#00ff9c" />
+    </marker>
+    <marker id="wfArrowCyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#00f7ff" />
+    </marker>
+  </defs>
+
+  <style>
+    .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; }
+    .sans { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  </style>
+
+  <!-- Background -->
+  <rect width="960" height="480" fill="url(#wfBg)" />
+  <rect x="1" y="1" width="958" height="478" fill="none" stroke="rgba(0, 255, 156, 0.2)" stroke-width="1.5" />
+
+  <!-- Header -->
+  <g transform="translate(36, 28)">
+    <rect x="0" y="0" width="888" height="34" rx="4" fill="#08100d" stroke="rgba(0, 255, 156, 0.25)" stroke-width="1" />
+    <circle cx="16" cy="17" r="4" fill="#00ff9c" />
+    <text x="28" y="21" class="mono" font-size="11" font-weight="700" fill="#00ff9c" letter-spacing="0.1em">
+      OPERATIONAL LIFECYCLE · ORDER CREATION TO INVOICE SETTLEMENT
+    </text>
+    <text x="874" y="21" text-anchor="end" class="mono" font-size="10" fill="#8e9d97">
+      5 ACTORS · ATOMIC STATE MACHINE
+    </text>
+  </g>
+
+  <!-- 5 WORKFLOW STAGES (Horizontal cards) -->
+  <!-- STEP 1: Salesman -->
+  <g transform="translate(36, 88)">
+    <rect x="0" y="0" width="164" height="280" rx="6" fill="url(#cardGrad)" stroke="rgba(0, 255, 156, 0.3)" stroke-width="1.2" />
+    <rect x="0" y="0" width="164" height="32" rx="6" fill="#0d241b" />
+    <text x="12" y="21" class="mono" font-size="10.5" font-weight="700" fill="#00ff9c">01 · SALESMAN</text>
+    
+    <g transform="translate(12, 48)">
+      <text x="0" y="0" class="mono" font-size="9" fill="#00f7ff">/salesman/*</text>
+      <text x="0" y="20" class="sans" font-size="12" font-weight="700" fill="#edfdf6">Order Creation</text>
+      <text x="0" y="42" class="sans" font-size="10.5" fill="#8e9d97">· Browse Catalog</text>
+      <text x="0" y="60" class="sans" font-size="10.5" fill="#8e9d97">· Select Price Band</text>
+      <text x="0" y="78" class="sans" font-size="10.5" fill="#8e9d97">· Specify Quantities</text>
+      <text x="0" y="96" class="sans" font-size="10.5" fill="#8e9d97">· Check Credit Limit</text>
+      
+      <rect x="0" y="128" width="140" height="48" rx="4" fill="#06120d" stroke="rgba(0, 255, 156, 0.2)" stroke-width="1" />
+      <text x="8" y="146" class="mono" font-size="9" fill="#8e9d97">Output State:</text>
+      <text x="8" y="164" class="mono" font-size="10.5" font-weight="700" fill="#00ff9c">STATUS: DRAFT</text>
+    </g>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="202" y1="228" x2="216" y2="228" stroke="#00ff9c" stroke-width="2" marker-end="url(#wfArrow)" />
+
+  <!-- STEP 2: Operations Admin -->
+  <g transform="translate(218, 88)">
+    <rect x="0" y="0" width="164" height="280" rx="6" fill="url(#cardGrad)" stroke="rgba(0, 247, 255, 0.3)" stroke-width="1.2" />
+    <rect x="0" y="0" width="164" height="32" rx="6" fill="#082229" />
+    <text x="12" y="21" class="mono" font-size="10.5" font-weight="700" fill="#00f7ff">02 · ADMIN</text>
+    
+    <g transform="translate(12, 48)">
+      <text x="0" y="0" class="mono" font-size="9" fill="#00f7ff">/admin/*</text>
+      <text x="0" y="20" class="sans" font-size="12" font-weight="700" fill="#edfdf6">Order Review</text>
+      <text x="0" y="42" class="sans" font-size="10.5" fill="#8e9d97">· Review Margins</text>
+      <text x="0" y="60" class="sans" font-size="10.5" fill="#8e9d97">· Approve Exceptions</text>
+      <text x="0" y="78" class="sans" font-size="10.5" fill="#8e9d97">· Quantity Allocation</text>
+      <text x="0" y="96" class="sans" font-size="10.5" fill="#8e9d97">· Confirm Inventory</text>
+      
+      <rect x="0" y="128" width="140" height="48" rx="4" fill="#061217" stroke="rgba(0, 247, 255, 0.2)" stroke-width="1" />
+      <text x="8" y="146" class="mono" font-size="9" fill="#8e9d97">Output State:</text>
+      <text x="8" y="164" class="mono" font-size="10.5" font-weight="700" fill="#00f7ff">STATUS: APPROVED</text>
+    </g>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="384" y1="228" x2="398" y2="228" stroke="#00f7ff" stroke-width="2" marker-end="url(#wfArrowCyan)" />
+
+  <!-- STEP 3: Warehouse Manager -->
+  <g transform="translate(400, 88)">
+    <rect x="0" y="0" width="164" height="280" rx="6" fill="url(#cardGrad)" stroke="rgba(0, 255, 156, 0.3)" stroke-width="1.2" />
+    <rect x="0" y="0" width="164" height="32" rx="6" fill="#0d241b" />
+    <text x="12" y="21" class="mono" font-size="10.5" font-weight="700" fill="#00ff9c">03 · WAREHOUSE</text>
+    
+    <g transform="translate(12, 48)">
+      <text x="0" y="0" class="mono" font-size="9" fill="#00ff9c">Stock Operations</text>
+      <text x="0" y="20" class="sans" font-size="12" font-weight="700" fill="#edfdf6">Inventory Pack</text>
+      <text x="0" y="42" class="sans" font-size="10.5" fill="#8e9d97">· Stock Reservation</text>
+      <text x="0" y="60" class="sans" font-size="10.5" fill="#8e9d97">· Physical Pick &amp; Pack</text>
+      <text x="0" y="78" class="sans" font-size="10.5" fill="#8e9d97">· Discrepancy Log</text>
+      <text x="0" y="96" class="sans" font-size="10.5" fill="#8e9d97">· Assign Dispatch</text>
+      
+      <rect x="0" y="128" width="140" height="48" rx="4" fill="#06120d" stroke="rgba(0, 255, 156, 0.2)" stroke-width="1" />
+      <text x="8" y="146" class="mono" font-size="9" fill="#8e9d97">Output State:</text>
+      <text x="8" y="164" class="mono" font-size="10.5" font-weight="700" fill="#00ff9c">STATUS: PACKED</text>
+    </g>
+  </g>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="566" y1="228" x2="580" y2="228" stroke="#00ff9c" stroke-width="2" marker-end="url(#wfArrow)" />
+
+  <!-- STEP 4: Delivery Partner -->
+  <g transform="translate(582, 88)">
+    <rect x="0" y="0" width="164" height="280" rx="6" fill="url(#cardGrad)" stroke="rgba(0, 247, 255, 0.3)" stroke-width="1.2" />
+    <rect x="0" y="0" width="164" height="32" rx="6" fill="#082229" />
+    <text x="12" y="21" class="mono" font-size="10.5" font-weight="700" fill="#00f7ff">04 · DELIVERY</text>
+    
+    <g transform="translate(12, 48)">
+      <text x="0" y="0" class="mono" font-size="9" fill="#00f7ff">/delivery/*</text>
+      <text x="0" y="20" class="sans" font-size="12" font-weight="700" fill="#edfdf6">Transit &amp; PoD</text>
+      <text x="0" y="42" class="sans" font-size="10.5" fill="#8e9d97">· Pickup Consignment</text>
+      <text x="0" y="60" class="sans" font-size="10.5" fill="#8e9d97">· In-Transit Tracking</text>
+      <text x="0" y="78" class="sans" font-size="10.5" fill="#8e9d97">· Destination Handover</text>
+      <text x="0" y="96" class="sans" font-size="10.5" fill="#8e9d97">· Signed PoD to S3</text>
+      
+      <rect x="0" y="128" width="140" height="48" rx="4" fill="#061217" stroke="rgba(0, 247, 255, 0.2)" stroke-width="1" />
+      <text x="8" y="146" class="mono" font-size="9" fill="#8e9d97">Output State:</text>
+      <text x="8" y="164" class="mono" font-size="10.5" font-weight="700" fill="#00f7ff">STATUS: DELIVERED</text>
+    </g>
+  </g>
+
+  <!-- Arrow 4 -> 5 -->
+  <line x1="748" y1="228" x2="762" y2="228" stroke="#00f7ff" stroke-width="2" marker-end="url(#wfArrowCyan)" />
+
+  <!-- STEP 5: Accountant -->
+  <g transform="translate(764, 88)">
+    <rect x="0" y="0" width="160" height="280" rx="6" fill="url(#cardGrad)" stroke="rgba(139, 92, 246, 0.3)" stroke-width="1.2" />
+    <rect x="0" y="0" width="160" height="32" rx="6" fill="#1b122c" />
+    <text x="12" y="21" class="mono" font-size="10.5" font-weight="700" fill="#a78bfa">05 · FINANCE</text>
+    
+    <g transform="translate(12, 48)">
+      <text x="0" y="0" class="mono" font-size="9" fill="#a78bfa">Accounting Scope</text>
+      <text x="0" y="20" class="sans" font-size="12" font-weight="700" fill="#edfdf6">Ledger &amp; Invoice</text>
+      <text x="0" y="42" class="sans" font-size="10.5" fill="#8e9d97">· Generate Tax Invoice</text>
+      <text x="0" y="60" class="sans" font-size="10.5" fill="#8e9d97">· Double-Entry Post</text>
+      <text x="0" y="78" class="sans" font-size="10.5" fill="#8e9d97">· Receivable Tracking</text>
+      <text x="0" y="96" class="sans" font-size="10.5" fill="#8e9d97">· Reconcile Payment</text>
+      
+      <rect x="0" y="128" width="136" height="48" rx="4" fill="#110a1c" stroke="rgba(139, 92, 246, 0.2)" stroke-width="1" />
+      <text x="8" y="146" class="mono" font-size="9" fill="#8e9d97">Final State:</text>
+      <text x="8" y="164" class="mono" font-size="10.5" font-weight="700" fill="#a78bfa">STATUS: SETTLED</text>
+    </g>
+  </g>
+
+  <!-- Bottom Legend Bar -->
+  <g transform="translate(36, 396)">
+    <rect x="0" y="0" width="888" height="48" rx="4" fill="#080e0c" stroke="rgba(0, 255, 156, 0.15)" stroke-width="1" />
+    <text x="16" y="28" class="mono" font-size="10" fill="#8e9d97">
+      GUARANTEES: Atomic DB transactions · Strict foreign keys · Double-entry audit trail · Role-scoped API authorization
+    </text>
+  </g>
+</svg>

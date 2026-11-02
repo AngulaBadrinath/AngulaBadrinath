@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 480" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="orbitBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050505" />
+      <stop offset="50%" stop-color="#080c0b" />
+      <stop offset="100%" stop-color="#040706" />
+    </linearGradient>
+
+    <!-- Node Gradients -->
+    <linearGradient id="centerNodeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d2b1f" />
+      <stop offset="100%" stop-color="#06120d" />
+    </linearGradient>
+
+    <linearGradient id="domainNodeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a1210" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#050807" stop-opacity="0.95" />
+    </linearGradient>
+
+    <!-- Subtle Glows -->
+    <filter id="coreGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <filter id="nodeGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Ambient Grid -->
+    <pattern id="orbitGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0, 255, 156, 0.035)" stroke-width="1" />
+    </pattern>
+  </defs>
+
+  <style>
+    .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; }
+    .sans { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif; }
+    .title { font-weight: 800; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .tag { font-size: 10.5px; fill: #8e9d97; }
+    .tag-hi { font-size: 10.5px; fill: #edfdf6; font-weight: 600; }
+  </style>
+
+  <!-- Background Base -->
+  <rect width="920" height="480" fill="url(#orbitBg)" />
+  <rect width="920" height="480" fill="url(#orbitGrid)" />
+  
+  <!-- Outer Frame -->
+  <rect x="1" y="1" width="918" height="478" fill="none" stroke="rgba(0, 255, 156, 0.16)" stroke-width="1" />
+  
+  <!-- Corner Tech Accent Marks -->
+  <path d="M 2 16 L 2 2 L 16 2" fill="none" stroke="#00ff9c" stroke-width="1.5" />
+  <path d="M 918 16 L 918 2 L 904 2" fill="none" stroke="#00ff9c" stroke-width="1.5" />
+  <path d="M 2 464 L 2 478 L 16 478" fill="none" stroke="#00ff9c" stroke-width="1.5" />
+  <path d="M 918 464 L 918 478 L 904 478" fill="none" stroke="#00ff9c" stroke-width="1.5" />
+
+  <!-- Orbit Header -->
+  <g transform="translate(32, 28)">
+    <text x="0" y="0" class="mono" font-size="10" font-weight="700" fill="#00ff9c" letter-spacing="0.15em">SYSTEM / ARCHITECTURE MATRIX</text>
+    <text x="0" y="20" class="sans" font-size="20" font-weight="800" fill="#edfdf6" letter-spacing="-0.02em">
+      Interactive Skill &amp; Engineering Orbit
+    </text>
+    <text x="0" y="38" class="sans" font-size="12" fill="#8e9d97">
+      Full-stack domains grounded in repository evidence and practical delivery.
+    </text>
+  </g>
+
+  <!-- ORBITAL TRACKS & CONNECTORS (Center = 460, 270) -->
+  <g opacity="0.6">
+    <!-- Outer Orbit Track -->
+    <ellipse cx="460" cy="270" rx="340" ry="160" fill="none" stroke="rgba(0, 255, 156, 0.12)" stroke-width="1.2" stroke-dasharray="4 6" />
+    <!-- Inner Orbit Track -->
+    <ellipse cx="460" cy="270" rx="220" ry="105" fill="none" stroke="rgba(0, 247, 255, 0.1)" stroke-width="1" stroke-dasharray="2 4" />
+    
+    <!-- Connection Spokes to Domain Centers -->
+    <!-- Top Left: 180, 130 -->
+    <line x1="460" y1="270" x2="210" y2="135" stroke="rgba(0, 255, 156, 0.2)" stroke-width="1" />
+    <!-- Top Center: 460, 110 -->
+    <line x1="460" y1="270" x2="460" y2="120" stroke="rgba(0, 247, 255, 0.2)" stroke-width="1" />
+    <!-- Top Right: 740, 130 -->
+    <line x1="460" y1="270" x2="710" y2="135" stroke="rgba(139, 92, 246, 0.2)" stroke-width="1" />
+    <!-- Bottom Left: 180, 410 -->
+    <line x1="460" y1="270" x2="210" y2="405" stroke="rgba(0, 255, 156, 0.2)" stroke-width="1" />
+    <!-- Bottom Center: 460, 430 -->
+    <line x1="460" y1="270" x2="460" y2="420" stroke="rgba(0, 247, 255, 0.2)" stroke-width="1" />
+    <!-- Bottom Right: 740, 410 -->
+    <line x1="460" y1="270" x2="710" y2="405" stroke="rgba(139, 92, 246, 0.2)" stroke-width="1" />
+  </g>
+
+  <!-- CENTER CORE NODE -->
+  <g transform="translate(460, 270)">
+    <!-- Outer Glow Ring -->
+    <circle cx="0" cy="0" r="48" fill="none" stroke="#00ff9c" stroke-width="1" opacity="0.3" filter="url(#coreGlow)" />
+    <!-- Core Disc -->
+    <circle cx="0" cy="0" r="40" fill="url(#centerNodeGrad)" stroke="#00ff9c" stroke-width="1.8" />
+    <!-- Pulse Ring -->
+    <circle cx="0" cy="0" r="44" fill="none" stroke="#00f7ff" stroke-width="1" stroke-dasharray="3 3" opacity="0.6" />
+    
+    <!-- Core Labels -->
+    <text x="0" y="-8" text-anchor="middle" class="mono" font-size="13" font-weight="900" fill="#edfdf6" letter-spacing="0.05em">AB<tspan fill="#00ff9c">/</tspan></text>
+    <text x="0" y="8" text-anchor="middle" class="mono" font-size="8.5" font-weight="700" fill="#00ff9c" letter-spacing="0.1em">ENGINEERING</text>
+    <text x="0" y="21" text-anchor="middle" class="mono" font-size="8" fill="#8e9d97">CORE</text>
+  </g>
+
+  <!-- DOMAIN NODE 1: FRONTEND (Top Left: x=80, y=85, w=220, h=92) -->
+  <g transform="translate(80, 85)">
+    <rect x="0" y="0" width="220" height="92" rx="6" fill="url(#domainNodeGrad)" stroke="rgba(0, 255, 156, 0.35)" stroke-width="1.2" />
+    <circle cx="16" cy="18" r="4" fill="#00ff9c" />
+    <text x="28" y="22" class="mono title" fill="#00ff9c">01 · FRONTEND</text>
+    <path d="M 0 32 L 220 32" stroke="rgba(0, 255, 156, 0.15)" stroke-width="1" />
+    <text x="14" y="50" class="mono tag-hi">React 19 <tspan class="tag">·</tspan> TypeScript 7</text>
+    <text x="14" y="66" class="mono tag">Next.js 15 · Inertia.js 3</text>
+    <text x="14" y="82" class="mono tag">Tailwind CSS 4 · Vite 8</text>
+  </g>
+
+  <!-- DOMAIN NODE 2: BACKEND & APIS (Top Center: x=350, y=60, w=220, h=92) -->
+  <g transform="translate(350, 60)">
+    <rect x="0" y="0" width="220" height="92" rx="6" fill="url(#domainNodeGrad)" stroke="rgba(0, 247, 255, 0.35)" stroke-width="1.2" />
+    <circle cx="16" cy="18" r="4" fill="#00f7ff" />
+    <text x="28" y="22" class="mono title" fill="#00f7ff">02 · BACKEND &amp; APIS</text>
+    <path d="M 0 32 L 220 32" stroke="rgba(0, 247, 255, 0.15)" stroke-width="1" />
+    <text x="14" y="50" class="mono tag-hi">Python 3.12+ <tspan class="tag">·</tspan> FastAPI</text>
+    <text x="14" y="66" class="mono tag">Node.js · Express.js</text>
+    <text x="14" y="82" class="mono tag">Laravel 13 (PHP) · REST APIs</text>
+  </g>
+
+  <!-- DOMAIN NODE 3: DATA & STORAGE (Top Right: x=620, y=85, w=220, h=92) -->
+  <g transform="translate(620, 85)">
+    <rect x="0" y="0" width="220" height="92" rx="6" fill="url(#domainNodeGrad)" stroke="rgba(139, 92, 246, 0.35)" stroke-width="1.2" />
+    <circle cx="16" cy="18" r="4" fill="#8b5cf6" />
+    <text x="28" y="22" class="mono title" fill="#a78bfa">03 · DATA &amp; STORAGE</text>
+    <path d="M 0 32 L 220 32" stroke="rgba(139, 92, 246, 0.15)" stroke-width="1" />
+    <text x="14" y="50" class="mono tag-hi">PostgreSQL 18 <tspan class="tag">·</tspan> Redis 7</text>
+    <text x="14" y="66" class="mono tag">MinIO / S3 Object Storage</text>
+    <text x="14" y="82" class="mono tag">MongoDB · Alembic / Migrations</text>
+  </g>
+
+  <!-- DOMAIN NODE 4: CLOUD & DELIVERY (Bottom Left: x=80, y=355, w=220, h=92) -->
+  <g transform="translate(80, 355)">
+    <rect x="0" y="0" width="220" height="92" rx="6" fill="url(#domainNodeGrad)" stroke="rgba(0, 255, 156, 0.35)" stroke-width="1.2" />
+    <circle cx="16" cy="18" r="4" fill="#00ff9c" />
+    <text x="28" y="22" class="mono title" fill="#00ff9c">04 · CLOUD &amp; DELIVERY</text>
+    <path d="M 0 32 L 220 32" stroke="rgba(0, 255, 156, 0.15)" stroke-width="1" />
+    <text x="14" y="50" class="mono tag-hi">Docker <tspan class="tag">·</tspan> Docker Compose</text>
+    <text x="14" y="66" class="mono tag">Linux Environment · Git / CLI</text>
+    <text x="14" y="82" class="mono tag">GitHub Actions CI/CD · AWS Basics</text>
+  </g>
+
+  <!-- DOMAIN NODE 5: AI APPLICATIONS (Bottom Center: x=350, y=375, w=220, h=92) -->
+  <g transform="translate(350, 375)">
+    <rect x="0" y="0" width="220" height="92" rx="6" fill="url(#domainNodeGrad)" stroke="rgba(0, 247, 255, 0.35)" stroke-width="1.2" />
+    <circle cx="16" cy="18" r="4" fill="#00f7ff" />
+    <text x="28" y="22" class="mono title" fill="#00f7ff">05 · AI APPLICATIONS</text>
+    <path d="M 0 32 L 220 32" stroke="rgba(0, 247, 255, 0.15)" stroke-width="1" />
+    <text x="14" y="50" class="mono tag-hi">Async Worker Queues (ARQ)</text>
+    <text x="14" y="66" class="mono tag">Structured LLM Extraction</text>
+    <text x="14" y="82" class="mono tag">Ollama Integration · Audio ML</text>
+  </g>
+
+  <!-- DOMAIN NODE 6: ENGINEERING PRACTICES (Bottom Right: x=620, y=355, w=220, h=92) -->
+  <g transform="translate(620, 355)">
+    <rect x="0" y="0" width="220" height="92" rx="6" fill="url(#domainNodeGrad)" stroke="rgba(139, 92, 246, 0.35)" stroke-width="1.2" />
+    <circle cx="16" cy="18" r="4" fill="#8b5cf6" />
+    <text x="28" y="22" class="mono title" fill="#a78bfa">06 · PRACTICES</text>
+    <path d="M 0 32 L 220 32" stroke="rgba(139, 92, 246, 0.15)" stroke-width="1" />
+    <text x="14" y="50" class="mono tag-hi">Multi-Tenancy Isolation</text>
+    <text x="14" y="66" class="mono tag">RBAC &amp; JWT Authentication</text>
+    <text x="14" y="82" class="mono tag">Playwright E2E · Unit / Pest QA</text>
+  </g>
+</svg>
