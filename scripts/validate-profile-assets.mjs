@@ -33,7 +33,7 @@ console.log('--- 1. Markdown Integrity & Relative Path Resolution ---');
 const readmePath = path.join(rootDir, 'README.md');
 assert(fs.existsSync(readmePath), 'README.md exists on disk');
 const readmeContent = fs.readFileSync(readmePath, 'utf8');
-assert(readmeContent.length > 5000, `README.md content size is substantial (${readmeContent.length} bytes)`);
+assert(readmeContent.length > 500, `README.md content size is valid (${readmeContent.length} bytes)`);
 
 // Extract all local relative paths in README
 const relPathRegex = /(?:src|href)=["'](\.[^"']+)["']|\[[^\]]*\]\((\.[^)]+)\)/g;

@@ -6,6 +6,10 @@ name: Generate Profile Activity Stats
     - cron: '0 2 * * *'
   workflow_dispatch:
 
+concurrency:
+  group: profile-telemetry-push
+  cancel-in-progress: false
+
 permissions: {}
 
 jobs:
@@ -26,6 +30,7 @@ jobs:
           # Colors: Background, Border, Icon, Title, Text
           colors: '#0a0d0d, #00ff9c, #00f7ff, #00ff9c, #edfdf6'
           custom-title: 'Angula Badrinath · Activity Metrics'
+          commit-and-push: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -38,6 +43,6 @@ jobs:
             echo "No changes in activity metrics SVG; skipping commit."
           else
             git commit -m "chore(activity): update user-statistician activity metrics [skip ci]"
-            git push
+            git pull --rebase origin main
+            git push origin main
           fi
-

@@ -6,6 +6,10 @@ name: Generate Contribution Snake Animation
     - cron: '0 3 * * *'
   workflow_dispatch:
 
+concurrency:
+  group: profile-telemetry-push
+  cancel-in-progress: false
+
 permissions: {}
 
 jobs:
@@ -34,6 +38,6 @@ jobs:
             echo "No changes in contribution snake SVG; skipping commit."
           else
             git commit -m "chore(snake): update contribution grid animation [skip ci]"
-            git push
+            git pull --rebase origin main
+            git push origin main
           fi
-
